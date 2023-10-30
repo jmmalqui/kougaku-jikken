@@ -1,55 +1,79 @@
 import time
+import pygame as pg
+from typing import Union
 
 
 class Animation:
-    def __init__(self) -> None:
-        self.val_list: list[AnimVal] = []
+    def __init__(self):
+        self.dynamic_objects: list[DynamicObject] = []
 
     def update(self):
-        for value in self.val_list:
-            value.update()
+        for dynamic_object in self.dynamic_objects:
+            dynamic_object.update()
 
 
-class AnimVal:
-    def __init__(self, handler, value) -> None:
-        handler.val_list.append(self)
-        self.value = value
-        self.start_value = value
-        self.begin = time.time()
-        self.current = time.time()
-        self.begin_movement = False
-        self.next_target_value = None
-        self.anim_duration = 0
-        self.value_diff = None
-        self.animation_curve = None
+class DynamicObject:
+    def __init__(
+        self,
+        animation_manager: Animation,
+        animation_object: Union[float, pg.Vector2, pg.Vector3],
+    ):
+        self.linear_interpolation_position = None
+        self.animation_manager = animation_manager
+        self.animation_object = animation_object
+        self.begin_animation_object = None
+        self.animation_manager.dynamic_objects.append(self)
+        self.begin_timestamp = time.time()
+        self.current_timestamp = time.time()
+        self.animation_object_difference = None
+        self.animation_function = None
+        self.animation_duration = 0
+        self.target_animation_object = None
+        self.animation_fired = False
+
+    def get_value(self):
+        return self.animation_object
+
+    def begin_movement(self):
+        if self.target_animation_object is None:
+            return
+        if self.current_timestamp > self.animation_duration:
+            self.animation_object = self.target_animation_object
+            self.animation_fired = False
+        if self.animation_function:
+            self.linear_interpolation_position = self.animation_function(
+                self.current_timestamp / self.animation_duration
+            )
+            self.animation_object = (
+                self.begin_animation_object
+                + self.linear_interpolation_position * self.animation_object_difference
+            )
+        else:
+            raise ValueError("No Animation Function was given.")
 
     def is_moving(self):
-        """Checks if the animation value has not reached its endpoints."""
-        return self.begin_movement
+        return self.animation_fired
 
-    def perform(self):
-        if self.next_target_value == None:
-            return
-        if self.current >= self.anim_duration:
-            self.begin_movement = False
-        if self.animation_curve:
-            anim_pos = self.animation_curve(self.current / (self.anim_duration))
-            self.value = self.start_value + anim_pos * self.value_diff
+    def go_to(
+        self,
+        target: Union[float, pg.Vector2, pg.Vector3],
+        duration: float,
+        animation_function,
+    ):
+        self.animation_fired = True
+        self.begin_timestamp = time.time()
+
+        if isinstance(self.animation_object, Union[pg.Vector2, pg.Vector3]):
+            self.begin_animation_object = self.animation_object.copy()
+            self.target_animation_object = target.copy()
         else:
-            self.value = -1
-
-    def move_to(self, target_value, duration, curve):
-        self.begin = time.time()
-        self.begin_movement = True
-        self.start_value = self.value
-        self.next_target_value = target_value
-
-        self.anim_duration = duration
-        self.animation_curve = curve
-        self.value_diff = target_value - self.value
+            self.begin_animation_object = self.animation_object
+            self.target_animation_object = target
+        self.animation_duration = duration
+        self.animation_function = animation_function
+        self.animation_object_difference = target - self.animation_object
 
     def update(self):
-        if self.begin_movement:
-            self.current = (time.time() - self.begin) * 100
-
-            self.perform()
+        if self.animation_fired:
+            self.current_timestamp = (time.time() - self.begin_timestamp) * 100
+            self.begin_movement()

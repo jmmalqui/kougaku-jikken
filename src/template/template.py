@@ -24,6 +24,6 @@ class MyApplication(MesaCore):
         self.set_clock(60)
         self.main_scene = MainScene(self, "main", self.scene_manager)
         self.scene_manager.set_init_scene("main")
-
+    
 app = MyApplication()
 app.run()

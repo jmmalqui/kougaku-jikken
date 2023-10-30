@@ -52,9 +52,8 @@ class _MesaContainer:
             self.on_init = True
             self.surface_type = MesaCoreFlag.NOT_DECLARED_ON_INIT
 
-    def display_resized(self):
+    def _display_resized(self):
         if self.on_init:
-            print("omg")
             self.on_init = False
             return True
         if pg.display.get_window_size() == self.display_size:
@@ -71,7 +70,7 @@ class _MesaContainer:
         for element in self.elements:
             element._on_resize()
 
-    def set_rounded_borders(self, radius):
+    def _set_rounded_borders(self, radius):
         self.radius = radius
 
     def late_init(self):
@@ -91,16 +90,16 @@ class _MesaContainer:
     def get_absolute_position(self):
         return self.parent.absolute_position + self.position
 
-    def is_container_hovered(self):
+    def _is_container_hovered(self):
         return self.rect.collidepoint(pg.mouse.get_pos())
 
-    def populate_rects(self):
+    def _populate_rects(self):
         ...
 
-    def compute_elements_positions(self):
+    def _compute_elements_positions(self):
         for element in self.elements:
-            element.compute_elements_positions()
-            element.populate_rects()
+            element._compute_elements_positions()
+            element._populate_rects()
 
     def _compute_elements_surfaces_handle_width_case(self, element):
         if element.parent.type_flag == MesaRenderFlag.SLIDABLE_CONTAINER_HORIZONTAL:
@@ -191,7 +190,7 @@ class _MesaContainer:
 
     def build(self):
         self.compute_elements_surfaces()
-        self.compute_elements_positions()
+        self._compute_elements_positions()
         self.compute_extra_inherit()
 
     def set_as_core(self):
@@ -308,9 +307,8 @@ class _MesaContainer:
             if self.surface_type != MesaCoreFlag.CORESURFACE:
                 self.surface.fill(self.background_color)
 
-        self.render_borders()
         self.render()
-
+        self.render_borders()
         for element in self.elements:
             element.__corerender__()
         self.inherit_render()

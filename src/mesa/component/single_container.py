@@ -60,7 +60,7 @@ class MesaSingleContainer(_MesaContainer):
         self.center_element_vertical()
         self.center_element_horizontal()
 
-    def compute_elements_positions(self):
+    def _compute_elements_positions(self):
         if len(self.elements) != 1:
             raise ValueError(
                 f"MayaSingleContainer can only handle one children container, you may have added more than two or not added any.  Num of Children: {len(self.elements)}"
@@ -80,7 +80,7 @@ class MesaSingleContainer(_MesaContainer):
             element.rect = pg.Rect(
                 element.absolute_position, element.surface.get_size()
             )
-        return super().compute_elements_positions()
+        return super()._compute_elements_positions()
 
     def late_init(self):
         if len(self.elements) != 1:

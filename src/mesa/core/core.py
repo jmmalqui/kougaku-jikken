@@ -67,7 +67,6 @@ class MesaCore:
             self.bacgkround_color = "black"
 
     def check_events(self):
-        print("eventing")
         self.scene_manager.pump_event(None)
         for event in pg.event.get():
             self.scene_manager.pump_event(event)
@@ -76,8 +75,6 @@ class MesaCore:
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_F1:
                     self.on_debug = not self.on_debug
-    
-
             if event.type == pg.VIDEORESIZE:
                 self.scene_manager.update_scene_sizes()
 

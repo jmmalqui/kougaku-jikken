@@ -12,6 +12,7 @@ class MesaTextLabel(_MesaContainer):
         self.font_size = MesaCoreFlag.NOT_DECLARED_ON_INIT
         self.text = MesaCoreFlag.NOT_DECLARED_ON_INIT
         self.text_surface = MesaCoreFlag.NOT_DECLARED_ON_INIT
+        self.font_type = "SYS"
         self.bold = False
         self.italic = False
         self.text_background_color = None
@@ -20,6 +21,17 @@ class MesaTextLabel(_MesaContainer):
         self.text_center_v_flag = MesaCoreFlag.NOT_DECLARED_ON_INIT
         self.text_center_h_flag = MesaCoreFlag.NOT_DECLARED_ON_INIT
         self.text_offset = pg.Vector2(0, 0)
+        pg.key.set_repeat(400, 50)
+
+    def declare_font_type(self, _type: str):
+        # This is subject to change, strings are considered bad practice.
+        if _type == "SYS":
+            self.font_type = "SYS"
+        if _type == "NOSYS":
+            self.font_type = "NOSYS"
+
+    def load_ttf(self, ttf):
+        self.font_name = ttf
 
     def center_text_vertical(self):
         self.text_center_v_flag = MesaRenderFlag.TEXT_CENTERED_V
@@ -52,6 +64,10 @@ class MesaTextLabel(_MesaContainer):
         self.italic = True
 
     def set_font_name(self, font_name):
+        if self.font_type == "NOSYS":
+            raise ValueError(
+                "フォントが非 sysfont 型として宣言されています。.ttf ファイルを読み込むには、代わりに load_ttf() を使用してください。"
+            )
         self.font_name = font_name
 
     def set_font_size(self, font_size):
@@ -60,9 +76,12 @@ class MesaTextLabel(_MesaContainer):
         if self.font_size != MesaCoreFlag.NOT_DECLARED_ON_INIT:
             if font_size != self.font_size:
                 self.font_size = font_size
-                self.font = pg.font.SysFont(
-                    self.font_name, self.font_size, self.bold, self.italic
-                )
+                if self.font_type == "SYS":
+                    self.font = pg.font.SysFont(
+                        self.font_name, self.font_size, self.bold, self.italic
+                    )
+                elif self.font_type == "NOSYS":
+                    self.font = pg.font.Font(self.font_name, self.font_size)
                 self.make_text_surface()
 
     def set_offset(self, x, y):
@@ -78,14 +97,20 @@ class MesaTextLabel(_MesaContainer):
 
     def make_text_surface(self):
         self.text_surface = self.font.render(
-            self.text, self.antialias, self.text_color, self.text_background_color
+            self.text,
+            self.antialias,
+            self.text_color,
+            self.text_background_color,
+            wraplength=self.surface.get_width(),
         )
 
     def late_init(self):
-        print("name: ", self.__class__.__name__)
-        self.font = pg.font.SysFont(
-            self.font_name, self.font_size, self.bold, self.italic
-        )
+        if self.font_type == "SYS":
+            self.font = pg.font.SysFont(
+                self.font_name, self.font_size, self.bold, self.italic
+            )
+        elif self.font_type == "NOSYS":
+            self.font = pg.font.Font(self.font_name, self.font_size)
         self.make_text_surface()
         return super().late_init()
 

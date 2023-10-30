@@ -6,7 +6,7 @@ class MesaStackVertical(_MesaContainer):
     def __init__(self, parent) -> None:
         super().__init__(parent)
 
-    def compute_elements_positions(self):
+    def _compute_elements_positions(self):
         accum = pg.Vector2(0, 0)
 
         for element in self.elements:
@@ -23,4 +23,4 @@ class MesaStackVertical(_MesaContainer):
             )
             accum.y += element.height
 
-        return super().compute_elements_positions()
+        return super()._compute_elements_positions()

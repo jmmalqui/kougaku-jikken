@@ -6,7 +6,7 @@ class MesaStackHorizontal(_MesaContainer):
     def __init__(self, parent) -> None:
         super().__init__(parent)
 
-    def compute_elements_positions(self):
+    def _compute_elements_positions(self):
         accum = pg.Vector2(0, 0)
         for element in self.elements:
             element.position.x = accum.x + element.margin
@@ -21,4 +21,4 @@ class MesaStackHorizontal(_MesaContainer):
                 element.absolute_position, element.surface.get_size()
             )
             accum.x += element.width
-        return super().compute_elements_positions()
+        return super()._compute_elements_positions()

@@ -7,7 +7,6 @@ class MesaButtonText(MesaTextLabel):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.signal = MesaCoreFlag.NOT_DECLARED_ON_INIT
-        self.set_color_as_parent()
         self.callback_result = None
 
     def get_result(self):
@@ -18,8 +17,11 @@ class MesaButtonText(MesaTextLabel):
 
     def handle_events(self):
         for event in self.scene.manager.get_events():
-            if event.type == pg.MOUSEBUTTONDOWN and self.is_container_hovered():
-                self.callback_result = self.signal()
+            if event.type == pg.MOUSEBUTTONDOWN and self._is_container_hovered():
+                if self.signal != MesaCoreFlag.NOT_DECLARED_ON_INIT:
+                    self.callback_result = self.signal()
+                else:
+                    print(f"[DEBUG] No callback has been asigned to {self}")
 
     def inherit_update(self):
         self.handle_events()
