@@ -10,17 +10,17 @@ class MesaStackVertical(_MesaContainer):
         accum = pg.Vector2(0, 0)
 
         for element in self.elements:
-            element.position.x = accum.x + element.margin
-            element.position.y = accum.y + element.margin
+            element.position.x = accum.x + element.marginx
+            element.position.y = accum.y + element.marginy
             element.absolute_position.x = (
-                self.absolute_position.x + accum.x + element.margin
+                self.absolute_position.x + accum.x + element.marginx
             )
             element.absolute_position.y = (
-                self.absolute_position.y + accum.y + element.margin
+                self.absolute_position.y + accum.y + element.marginy
             )
             element.rect = pg.Rect(
                 element.absolute_position, element.surface.get_size()
             )
-            accum.y += element.height
+            accum.y += element.height + element.marginy * 2
 
         return super()._compute_elements_positions()

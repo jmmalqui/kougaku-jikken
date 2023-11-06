@@ -14,11 +14,14 @@ class _MesaContainer:
             self.parent = parent
             self.parent.container = self
             self.elements = []
+            self.pre_height = MesaCoreFlag.NOT_DECLARED_ON_INIT
+            self.pre_width = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.width = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.height = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.width_flag = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.height_flag = MesaCoreFlag.NOT_DECLARED_ON_INIT
-            self.margin = 0
+            self.marginx = 0
+            self.marginy = 0
             self.surface = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.position = pg.Vector2(0, 0)
             if isinstance(parent, MesaScene):
@@ -76,8 +79,9 @@ class _MesaContainer:
     def late_init(self):
         ...
 
-    def set_margin(self, margin):
-        self.margin = margin
+    def set_margin(self, margin_x, margin_y):
+        self.marginx = margin_x
+        self.marginy = margin_y
 
     def set_color_as_parent(self):
         self.background_color = self.parent.background_color
@@ -127,7 +131,7 @@ class _MesaContainer:
                         )
                     accum_width += other_element.width
             return element.parent.width - accum_width
-        return element.width
+        return element.pre_width
 
     def _compute_elements_surfaces_handle_height_case(self, element):
         if element.parent.type_flag == MesaRenderFlag.SLIDABLE_CONTAINER_HORIZONTAL:
@@ -154,7 +158,7 @@ class _MesaContainer:
                         )
                     accum_height += other_element.height
             return element.parent.height - accum_height
-        return element.height
+        return element.pre_height
 
     def compute_elements_surfaces(self):
         if self.surface_type == MesaCoreFlag.CORESURFACE:
@@ -162,17 +166,23 @@ class _MesaContainer:
         else:
             self.rect = pg.Rect(self.absolute_position, self.surface.get_size())
             print(
-                f"[DEBUG] Surface of size {self.surface.get_size()} has been made. Component: {self.__class__.__name__}"
+                f"[DEBUG] Surface of size {self.surface.get_size()} has been made. Component: {self.__class__.__name__} {self.absolute_position}"
             )
 
         for element in self.elements:
-            element.height = self._compute_elements_surfaces_handle_height_case(element)
-            element.width = self._compute_elements_surfaces_handle_width_case(element)
+            element.height = (
+                self._compute_elements_surfaces_handle_height_case(element)
+                - 2 * element.marginy
+            )
+            element.width = (
+                self._compute_elements_surfaces_handle_width_case(element)
+                - 2 * element.marginx
+            )
 
             element.surface = pg.Surface(
                 [
-                    element.width - 2 * element.margin,
-                    element.height - 2 * element.margin,
+                    element.width,
+                    element.height,
                 ],
                 flags=pg.SRCALPHA,
             )
@@ -269,9 +279,11 @@ class _MesaContainer:
 
     def set_fixed_width(self, value):
         self.width = value
+        self.pre_width = value
 
     def set_fixed_height(self, value):
         self.height = value
+        self.pre_height = value
 
     def add_element(self, element):
         if isinstance(element, (_MesaContainer)):

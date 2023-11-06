@@ -126,7 +126,7 @@ class DogImage2(MesaImage):
 class MyInputBox(MesaTextBoxInput):
     def __init__(self, parent) -> None:
         super().__init__(parent)
-        self.set_fixed_height(50)
+        self.set_fixed_height(25)
         self.set_width_as_parent()
         self.declare_font_type("NOSYS")
         self.load_ttf("res/JetBrainsMonoNerdFont-LightItalic.ttf")
@@ -189,6 +189,8 @@ class DescriptorMiddlePanel(MesaStackVertical):
         self.cus = CustomTitle(self, "MesaTextBoxInput", 520)
         self.description = CustomText(self, "テキスト入力", 30)
         self.cus = MyInputBox(self)
+        self.cus = MyInputBox(self)
+
         self.cus = CustomTitle(self, "Animation", 520)
         self.animzone = AnimationZone(self)
         self.parent.add_element(self)
