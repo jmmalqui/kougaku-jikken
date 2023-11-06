@@ -34,7 +34,7 @@ class MesaCore:
         self.rendering_flags = flags
 
     def set_clock(self, fps):
-        self.clock = pg.Clock()
+        self.clock = pg.time.Clock()
         self.clock_type = MesaCoreFlag.NON_TICK_BUSY_CLOCK
         self.clock_fps = fps
 

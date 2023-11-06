@@ -1,12 +1,12 @@
 from mesa import *
 import pygame as pg
 
-
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
-        self.set_background_color([10, 10, 10])
+        self.set_background_color("#E6E6E6")
         self.container = MesaStackVertical(self)
+
         self.container.set_as_core()
         self.container.build()
 
