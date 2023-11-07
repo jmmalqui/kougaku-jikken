@@ -34,7 +34,7 @@ class kage(MesaStackVertical):
         self.parent.add_element(self)
         self.border_left("#E6E6E6", 7)
         self.border_up("#E6E6E6", 7)
-        self.set_margin(7,5)
+        self.set_margin(9,5)
 
 
 class pcImage(MesaImage):
@@ -139,12 +139,27 @@ class PCtitle4(MesaStackVertical):
         self.set_fixed_height(50)
         self.set_height_as_parent()
         self.set_color_as_parent()
-        self.pcname1=PCname1(self,"  HP",25)
-        self.pcname2=PCname2(self,"   Spectre x360 6F8L0PA-AAAB",13,25)
+        self.pcname1=PCname1(self,"  dynabook",25)
+        self.pcname2=PCname2(self,"  C7 P2C7VBEL",16,25)
         self.buttom=seemore(self)
         self.border_left("black", 4)
         self.parent.add_element(self)
         self.set_margin(5,12)
+
+class PCtitle5(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(200)
+        self.set_fixed_height(50)
+        self.set_height_as_parent()
+        self.set_color_as_parent()
+        self.pcname1=PCname1(self,"  ASUS",25)
+        self.pcname2=PCname2(self,"   TUF Dash F15 FX517ZC",14,25)
+        self.buttom=seemore(self)
+        self.border_left("black", 4)
+        self.parent.add_element(self)
+        self.set_margin(5,12)
+
 
 class Button(MesaButtonText):
     def __init__(self, parent, text) -> None:
@@ -225,31 +240,56 @@ class inbox4(MesaStackHorizontal):
         self.set_width_as_display()
         self.set_height_as_display()
         self.set_background_color("white")
-        self.image=imagebox(self,"res/pc3.png")
+        self.image=imagebox(self,"res/pc4.png")
         self.pcname = PCtitle4(self)
         self.parent.add_element(self)
         self.set_margin(3,2)
+
+class inbox5(MesaStackHorizontal):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_width_as_display()
+        self.set_height_as_display()
+        self.set_background_color("white")
+        self.image=imagebox(self,"res/pc5.png")
+        self.pcname = PCtitle5(self)
+        self.parent.add_element(self)
+        self.set_margin(3,2)
+
+class maru(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(10)
+        self.set_fixed_height(10)
+        self.set_background_color("#AAAAAA")
+        self.parent.add_element(self)
+        
+    
 
 class scroll(MesaStackVertical):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
-        self.set_fixed_height(500)
+        self.set_height_as_parent()
         self.set_background_color("#E6E6E6")
         """この関数さえ入れたらスクロール機能が有効となる"""
         self.enable_scrolling()
-        self.kage1 = kage(self, 355, 145)
+        self.kage1 = kage(self, 358, 145)
         self.box1 = CustomBox(self.kage1, 335, 130, "white")
-        self.kage2 = kage(self, 355, 145)
+        self.kage2 = kage(self, 358, 145)
         self.box2 = CustomBox(self.kage2, 335, 130, "white")
-        self.kage3 = kage(self, 355, 145)
+        self.kage3 = kage(self, 358, 145)
         self.box3 = CustomBox(self.kage3, 335, 130, "white")
-        self.kage4 = kage(self, 355, 145)
+        self.kage4 = kage(self, 358, 145)
         self.box4 = CustomBox(self.kage4, 335, 130, "white")
+        self.kage5 = kage(self, 358, 145)
+        self.box5 = CustomBox(self.kage5, 335, 130, "white")
         self.inbox1=inbox1(self.box1)
+        #self.maru=maru(self.box1)
         self.inbox2=inbox2(self.box2)
         self.inbox3=inbox3(self.box3)
         self.inbox4=inbox4(self.box4)
+        self.inbox5=inbox5(self.box5)
         self.parent.add_element(self)
 
 
