@@ -1,6 +1,5 @@
 from mesa import *
 import pygame as pg
-from PIL import Image
 
 class Title(MesaTextLabel):
     def __init__(self, parent, text) -> None:
@@ -35,22 +34,35 @@ class kage(MesaStackVertical):
         self.parent.add_element(self)
         self.border_left("#E6E6E6", 7)
         self.border_up("#E6E6E6", 7)
-        self.margin=13
+        self.set_margin(7,5)
+
 
 class pcImage(MesaImage):
     def __init__(self, parent, image) -> None:
         super().__init__(parent)
-        self.set_fixed_width(130)
         self.set_fixed_height(130)
-        #self.set_width_as_parent()
-        #self.set_height_as_parent()
-        self.set_background_color("white")
+        self.set_fixed_width(130)
+        self.pathimage = image
         self.set_image(image)
-        #self.margin = 5
+        self.set_color_as_parent()
+        self.center_vertical()
+        self.center_element()
+        self.set_margin(16,16)
         self.parent.add_element(self)
 
     def late_init(self):
+        self.resize_match_parent_width()
+
         return super().late_init()
+    
+class imagebox(MesaStackVertical):
+    def __init__(self, parent, image) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(130)
+        self.set_fixed_height(130)
+        self.set_background_color("white")
+        self.image=pcImage(self,image)
+        self.parent.add_element(self)
 
 class PCname1(MesaTextLabel):
     def __init__(self, parent, text, height) -> None:
@@ -63,7 +75,6 @@ class PCname1(MesaTextLabel):
         self.set_text_color("black")
         self.set_text(text)
         self.set_background_color("white")
-        self.border_left("black", 3.5)
         self.parent.add_element(self)
 
 class PCname2(MesaTextLabel):
@@ -77,7 +88,6 @@ class PCname2(MesaTextLabel):
         self.set_text_color("black")
         self.set_text(text)
         self.set_background_color("white")
-        self.border_left("black", 3.5)
         self.parent.add_element(self)
 
 class PCtitle1(MesaStackVertical):
@@ -90,8 +100,9 @@ class PCtitle1(MesaStackVertical):
         self.pcname1=PCname1(self,"  Microsoft",25)
         self.pcname2=PCname2(self,"  Surface Laptop Go2",17,25)
         self.buttom=seemore(self)
+        self.border_left("black", 4)
         self.parent.add_element(self)
-        self.margin=8
+        self.set_margin(5,12)
 
 class PCtitle2(MesaStackVertical):
     def __init__(self, parent) -> None:
@@ -103,8 +114,9 @@ class PCtitle2(MesaStackVertical):
         self.pcname1=PCname1(self,"  Lenovo",25)
         self.pcname2=PCname2(self,"  IdeaPad Slim 370i",17,25)
         self.buttom=seemore(self)
+        self.border_left("black", 4)
         self.parent.add_element(self)
-        self.margin=8
+        self.set_margin(5,12)
 
 class PCtitle3(MesaStackVertical):
     def __init__(self, parent) -> None:
@@ -114,10 +126,25 @@ class PCtitle3(MesaStackVertical):
         self.set_height_as_parent()
         self.set_color_as_parent()
         self.pcname1=PCname1(self,"  HP",25)
-        self.pcname2=PCname2(self,"   Spectre x360 6F8L0PA-AAAB",14,25)
+        self.pcname2=PCname2(self,"   Spectre x360 6F8L0PA-AAAB",13,25)
         self.buttom=seemore(self)
+        self.border_left("black", 4)
         self.parent.add_element(self)
-        self.margin=8
+        self.set_margin(5,12)
+
+class PCtitle4(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(200)
+        self.set_fixed_height(50)
+        self.set_height_as_parent()
+        self.set_color_as_parent()
+        self.pcname1=PCname1(self,"  HP",25)
+        self.pcname2=PCname2(self,"   Spectre x360 6F8L0PA-AAAB",13,25)
+        self.buttom=seemore(self)
+        self.border_left("black", 4)
+        self.parent.add_element(self)
+        self.set_margin(5,12)
 
 class Button(MesaButtonText):
     def __init__(self, parent, text) -> None:
@@ -157,7 +184,7 @@ class seemore(MesaStackHorizontal):
         self.vpanel = kariBox(self,59,40,"white")
         self.button = Button(self," ▶ SEE MORE ")
         self.parent.add_element(self)
-        self.margin=8
+        self.set_margin(13,8)
     
 class inbox1(MesaStackHorizontal):
     def __init__(self, parent) -> None:
@@ -165,9 +192,10 @@ class inbox1(MesaStackHorizontal):
         self.set_width_as_display()
         self.set_height_as_display()
         self.set_background_color("white")
-        self.pcimage = pcImage(self,"res/pc1.png")
+        self.image=imagebox(self,"res/pc1.png")
         self.pcname = PCtitle1(self)
         self.parent.add_element(self)
+        self.set_margin(3,2)
 
 class inbox2(MesaStackHorizontal):
     def __init__(self, parent) -> None:
@@ -175,9 +203,10 @@ class inbox2(MesaStackHorizontal):
         self.set_width_as_display()
         self.set_height_as_display()
         self.set_background_color("white")
-        self.pcimage = pcImage(self,"res/pc2.png")
+        self.image=imagebox(self,"res/pc2.png")
         self.pcname = PCtitle2(self)
         self.parent.add_element(self)
+        self.set_margin(3,2)
 
 class inbox3(MesaStackHorizontal):
     def __init__(self, parent) -> None:
@@ -185,9 +214,44 @@ class inbox3(MesaStackHorizontal):
         self.set_width_as_display()
         self.set_height_as_display()
         self.set_background_color("white")
-        self.pcimage = pcImage(self,"res/pc3.png")
+        self.image=imagebox(self,"res/pc3.png")
         self.pcname = PCtitle3(self)
         self.parent.add_element(self)
+        self.set_margin(3,2)
+
+class inbox4(MesaStackHorizontal):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_width_as_display()
+        self.set_height_as_display()
+        self.set_background_color("white")
+        self.image=imagebox(self,"res/pc3.png")
+        self.pcname = PCtitle4(self)
+        self.parent.add_element(self)
+        self.set_margin(3,2)
+
+class scroll(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_width_as_parent()
+        self.set_fixed_height(500)
+        self.set_background_color("#E6E6E6")
+        """この関数さえ入れたらスクロール機能が有効となる"""
+        self.enable_scrolling()
+        self.kage1 = kage(self, 355, 145)
+        self.box1 = CustomBox(self.kage1, 335, 130, "white")
+        self.kage2 = kage(self, 355, 145)
+        self.box2 = CustomBox(self.kage2, 335, 130, "white")
+        self.kage3 = kage(self, 355, 145)
+        self.box3 = CustomBox(self.kage3, 335, 130, "white")
+        self.kage4 = kage(self, 355, 145)
+        self.box4 = CustomBox(self.kage4, 335, 130, "white")
+        self.inbox1=inbox1(self.box1)
+        self.inbox2=inbox2(self.box2)
+        self.inbox3=inbox3(self.box3)
+        self.inbox4=inbox4(self.box4)
+        self.parent.add_element(self)
+
 
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
@@ -196,15 +260,7 @@ class MainScene(MesaScene):
         self.container = MesaStackVertical(self)
         self.title=Title(self.container,"Renteck")
         self.container.set_as_core()
-        self.kage1 = kage(self.container, 362, 152)
-        self.box1 = CustomBox(self.kage1, 330, 120, "white")
-        self.kage2 = kage(self.container, 362, 152)
-        self.box2 = CustomBox(self.kage2, 330, 120, "white")
-        self.kage3 = kage(self.container, 362, 152)
-        self.box3 = CustomBox(self.kage3, 330, 120, "white")
-        self.inbox1=inbox1(self.box1)
-        self.inbox2=inbox2(self.box2)
-        self.inbox3=inbox3(self.box3)
+        self.scroll = scroll(self.container)
         self.container.build()
 
 

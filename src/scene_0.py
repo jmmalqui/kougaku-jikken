@@ -22,7 +22,6 @@ class MainScene(MesaScene):
         self.set_background_color("white")
         self.container = MesaStackVertical(self)
         self.title=Title(self.container, "Renteck")
-
         self.container.set_as_core()
         self.container.build()
 

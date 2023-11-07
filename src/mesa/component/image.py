@@ -41,12 +41,9 @@ class MesaImage(_MesaContainer):
 
     def resize_match_parent_height(self):
         height = self.height
-        print(height)
         width = (
             self.original_image.get_width() * height / self.original_image.get_height()
         )
-        print(width, height)
-        print(self.image.get_size(), self.original_image.copy())
         self.image = pg.transform.smoothscale(self.original_image, [width, height])
 
     def resize_match_parent_width(self):

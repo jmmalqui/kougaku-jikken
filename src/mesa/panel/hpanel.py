@@ -31,7 +31,6 @@ class MesaSlidablePanelHorizontal(MesaStackHorizontal):
         return super().late_init()
 
     def remake_slider(self):
-        print("im redone :)", self)
         self.middle_x = self.width // 2
         self.middle_y = 0
         self.slider = pg.Rect(

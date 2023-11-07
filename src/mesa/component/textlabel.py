@@ -96,9 +96,13 @@ class MesaTextLabel(_MesaContainer):
                 self.make_text_surface()
 
     def make_text_surface(self):
-        print(type(self.font))
-        # self.text_surface = pg.Surface([100,100])
-        self.text_surface = self.font.render(self.text,self.antialias,self.text_color,self.text_background_color,wraplength=self.surface.get_width())
+        self.text_surface = self.font.render(
+            self.text,
+            self.antialias,
+            self.text_color,
+            self.text_background_color,
+            wraplength=self.surface.get_width(),
+        )
 
     def late_init(self):
         if self.font_type == "SYS":
