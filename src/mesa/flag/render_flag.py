@@ -25,3 +25,5 @@ class MesaRenderFlag(Enum):
     FLEXBOX = 17
     GRID = 18
     SINGLE_CONTAINER = 19
+    CENTERX = 20
+    CENTERY = 21

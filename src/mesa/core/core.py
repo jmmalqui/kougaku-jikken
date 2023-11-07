@@ -25,6 +25,7 @@ class MesaCore:
         self.info_tag = InfoTagHandler(self)
         self.scene_manager = MesaSceneManager(self)
         self.on_debug = False
+        self.mouse_rel = [0, 0]
 
     def set_application_name(self, title):
         self.caption = title
@@ -78,8 +79,6 @@ class MesaCore:
             if event.type == pg.VIDEORESIZE:
                 self.scene_manager.update_scene_sizes()
 
-
-
     def set_background_color(self, color):
         self.bacgkround_color = color
 
@@ -114,7 +113,6 @@ class MesaCore:
 
     def run(self):
         while True:
-          
             self.update_dt()
             self.check_events()
 

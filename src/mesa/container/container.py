@@ -20,6 +20,8 @@ class _MesaContainer:
             self.height = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.width_flag = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.height_flag = MesaCoreFlag.NOT_DECLARED_ON_INIT
+            self.center_y = MesaCoreFlag.NOT_DECLARED_ON_INIT
+            self.center_x = MesaCoreFlag.NOT_DECLARED_ON_INIT
             self.marginx = 0
             self.marginy = 0
             self.surface = MesaCoreFlag.NOT_DECLARED_ON_INIT
@@ -54,6 +56,22 @@ class _MesaContainer:
             self.display_size = pg.display.get_window_size()
             self.on_init = True
             self.surface_type = MesaCoreFlag.NOT_DECLARED_ON_INIT
+            self.scrolloffset = pg.Vector2(0, 0)
+            self.can_scroll = False
+            self.rel = None
+            self.core = self.scene.manager.core
+
+    def enable_scrolling(self):
+        print(self.surface_type)
+        if self.surface_type == MesaCoreFlag.CORESURFACE:
+            raise ValueError("Core Surfaces can not use scrolling.")
+        self.can_scroll = True
+
+    def center_horizontal(self):
+        self.center_x = MesaRenderFlag.CENTERX
+
+    def center_vertical(self):
+        self.center_y = MesaRenderFlag.CENTERY
 
     def _display_resized(self):
         if self.on_init:
@@ -92,7 +110,7 @@ class _MesaContainer:
         self.original_color = self.background_color
 
     def get_absolute_position(self):
-        return self.parent.absolute_position + self.position
+        return self.parent.absolute_position + self.position + self.scrolloffset
 
     def _is_container_hovered(self):
         return self.rect.collidepoint(pg.mouse.get_pos())
@@ -129,7 +147,7 @@ class _MesaContainer:
                         raise ValueError(
                             "Could not build surface. No enough information was given [TWO LAYOUTS WITH NO DEFINED WIDTH]"
                         )
-                    accum_width += other_element.width
+                    accum_width += other_element.width + other_element.marginx * 2
             return element.parent.width - accum_width
         return element.pre_width
 
@@ -156,18 +174,33 @@ class _MesaContainer:
                         raise ValueError(
                             "Could not build surface. No enough information was given [TWO LAYOUTS WITH NO DEFINED HEIGHT]"
                         )
-                    accum_height += other_element.height
+                    accum_height += other_element.height + other_element.marginy * 2
             return element.parent.height - accum_height
         return element.pre_height
 
+    def update_rects(self):
+        if self.surface_type == MesaCoreFlag.CORESURFACE:
+            self.rect = pg.Rect(
+                self.absolute_position + self.scrolloffset, pg.display.get_window_size()
+            )
+        else:
+            self.rect = pg.Rect(
+                self.absolute_position + self.scrolloffset + self.parent.scrolloffset,
+                self.surface.get_size(),
+            )
+
     def compute_elements_surfaces(self):
         if self.surface_type == MesaCoreFlag.CORESURFACE:
-            self.rect = pg.Rect(self.absolute_position, pg.display.get_window_size())
-        else:
-            self.rect = pg.Rect(self.absolute_position, self.surface.get_size())
-            print(
-                f"[DEBUG] Surface of size {self.surface.get_size()} has been made. Component: {self.__class__.__name__} {self.absolute_position}"
+            self.rect = pg.Rect(
+                self.absolute_position + self.scrolloffset, pg.display.get_window_size()
             )
+        else:
+            self.rect = pg.Rect(
+                self.absolute_position + self.scrolloffset, self.surface.get_size()
+            )
+            # print(
+            #     f"[DEBUG] Surface of size {self.surface.get_size()} has been made. Component: {self.__class__.__name__} {self.absolute_position}"
+            # )
 
         for element in self.elements:
             element.height = (
@@ -293,18 +326,29 @@ class _MesaContainer:
                 "Classes that are not Component or Containers cannot be added to a Container parent"
             )
 
+    def get_rel(self):
+        return self.rel
+
     def update(self):
         ...
 
     def inherit_update(self):
         ...
 
+    def update_scroll(self):
+        ...
+
     def __coreupdate__(self):
+        self.rel = pg.mouse.get_rel()
+
         if self.should_late_init:
             self.late_init()
             self.should_late_init = False
+        if self.can_scroll:
+            self.update_scroll()
         self.update()
         self.inherit_update()
+
         for element in self.elements:
             element.__coreupdate__()
 
@@ -314,27 +358,36 @@ class _MesaContainer:
     def inherit_render(self):
         ...
 
+    def top_render(self):
+        ...
+
     def __corerender__(self):
         if self.background_color != None:
             if self.surface_type != MesaCoreFlag.CORESURFACE:
                 self.surface.fill(self.background_color)
 
         self.render()
-        self.render_borders()
         for element in self.elements:
             element.__corerender__()
         self.inherit_render()
+        self.render_borders()
 
         if self.scene.core.on_debug == False:
             if self.surface_type != MesaCoreFlag.CORESURFACE:
-                self.surface.set_alpha(255)
                 if self.parent.surface_type == MesaCoreFlag.CORESURFACE:
-                    self.scene.core.display.blit(self.surface, self.position)
+                    self.scene.core.display.blit(
+                        self.surface, self.position + self.scrolloffset
+                    )
                 else:
-                    self.parent.surface.blit(self.surface, self.position)
+                    self.parent.surface.blit(
+                        self.surface, self.position + self.scrolloffset
+                    )
+                    if self._is_container_hovered():
+                        self.border("red", 2)
+                    else:
+                        self.borderless()
         else:
             thick = 2
-
             if self.surface_type != MesaCoreFlag.CORESURFACE:
                 pg.draw.rect(
                     self.surface,
@@ -342,11 +395,16 @@ class _MesaContainer:
                     self.surface.get_rect(),
                     thick,
                 )
-                self.surface.set_alpha(255)
                 if self.parent.surface_type == MesaCoreFlag.CORESURFACE:
-                    self.scene.core.display.blit(self.surface, self.position)
+                    self.scene.core.display.blit(
+                        self.surface, self.position + self.scrolloffset
+                    )
                 else:
-                    self.parent.surface.blit(self.surface, self.position)
+                    self.parent.surface.blit(
+                        self.surface, self.position + self.scrolloffset
+                    )
+
+        self.top_render()
 
     def render_borders(self):
         for index, border in enumerate(self.borders):
