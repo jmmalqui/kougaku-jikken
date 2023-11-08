@@ -30,7 +30,7 @@ class kage(MesaStackVertical):
         super().__init__(parent)
         self.set_fixed_width(width)
         self.set_fixed_height(height)
-        self.set_background_color("#D1D1D1")
+        self.set_background_color("#E6E6E6")
         self.parent.add_element(self)
         self.border_left("#E6E6E6", 7)
         self.border_up("#E6E6E6", 7)
@@ -87,6 +87,7 @@ class PCname2(MesaTextLabel):
         self.set_font_size(size)
         self.set_text_color("black")
         self.set_text(text)
+        self.border_left("black", 4)
         self.set_background_color("white")
         self.parent.add_element(self)
 
@@ -94,7 +95,6 @@ class PCtitle1(MesaStackVertical):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_fixed_width(200)
-        self.set_fixed_height(50)
         self.set_height_as_parent()
         self.set_color_as_parent()
         self.pcname1=PCname1(self,"  Microsoft",25)
@@ -271,8 +271,7 @@ class scroll(MesaStackVertical):
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_height_as_parent()
-        self.set_background_color("#E6E6E6")
-        """この関数さえ入れたらスクロール機能が有効となる"""
+        self.set_background_color("#F3F3F3")
         self.enable_scrolling()
         self.kage1 = kage(self, 358, 145)
         self.box1 = CustomBox(self.kage1, 335, 130, "white")
@@ -296,7 +295,7 @@ class scroll(MesaStackVertical):
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
-        self.set_background_color("#E6E6E6")
+        self.set_background_color("#F3F3F3")
         self.container = MesaStackVertical(self)
         self.title=Title(self.container,"Renteck")
         self.container.set_as_core()
