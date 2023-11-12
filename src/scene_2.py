@@ -23,7 +23,7 @@ class PCname1(MesaTextLabel):
         self.set_fixed_height(30)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(23)
+        self.set_font_size(20)
         self.set_text_color("black")
         self.set_background_color("#F3F3F3")
         self.set_text("Microsoft")
@@ -36,7 +36,7 @@ class PCname2(MesaTextLabel):
         self.set_fixed_height(45)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(30)
+        self.set_font_size(27)
         self.set_text_color("black")
         self.set_background_color("#F3F3F3")
         self.set_text("Surface Laptop Go2")
@@ -52,13 +52,13 @@ class PCtitle(MesaStackVertical):
         self.pcname1=PCname1(self)
         self.pcname2=PCname2(self)
         self.parent.add_element(self)
-        self.set_margin(7,10)
+        self.set_margin(25,10)
 
 class pcImage(MesaImage):
     def __init__(self, parent, image) -> None:
         super().__init__(parent)
         self.set_fixed_height(450)
-        self.set_fixed_width(290)
+        self.set_fixed_width(280)
         self.pathimage = image
         self.set_image(image)
         self.set_color_as_parent()
@@ -82,47 +82,31 @@ class imagebox(MesaStackVertical):
 class rentarutext(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
-        self.set_fixed_width(170)
-        self.set_fixed_height(60)
-        self.declare_font_type("NOSYS")
-        self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(20)
-        self.set_text_color("black")
-        self.set_text(text)
-        self.border("black", 2)
-        self.set_background_color("#F3F3F3")
-        self.center_text()
-        self.set_margin(10,5)
-        self.parent.add_element(self)
-
-class rentarutext(MesaTextLabel):
-    def __init__(self, parent, text) -> None:
-        super().__init__(parent)
-        self.set_fixed_width(170)
+        self.set_fixed_width(176)
         self.set_fixed_height(55)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(20)
+        self.set_font_size(18)
         self.set_text_color("black")
         self.set_text(text)
         self.border("black", 2)
         self.set_background_color("#F3F3F3")
         self.center_text()
-        self.set_margin(10,7)
+        self.set_margin(25,7)
         self.parent.add_element(self)
 
 class daisu(MesaTextLabel):
     def __init__(self, parent) -> None:
         super().__init__(parent)
-        self.set_fixed_width(270)
-        self.set_fixed_height(73)
+        self.set_fixed_width(250)
+        self.set_fixed_height(60)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(17)
+        self.set_font_size(16)
         self.set_text_color("black")
         self.set_text("残り　　台")
         self.set_background_color("#F3F3F3")
-        self.set_margin(90,16)
+        self.set_margin(60,5)
         self.center_text()
         self.parent.add_element(self)
 
@@ -141,15 +125,90 @@ class number(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
+class NormalText(MesaTextLabel):
+    def __init__(self, parent, text) -> None:
+        super().__init__(parent)
+        self.set_width_as_display()
+        self.set_fixed_height(20)
+        self.declare_font_type("NOSYS")
+        self.load_ttf("res/NotoSansJP-Regular.ttf")
+        self.set_font_size(12)
+        self.set_text_color("black")
+        self.set_text(text)
+        self.set_color_as_parent()
+        self.set_margin(2, 0)
+        #self.center_text()
+        #self.center_vertical()
+        self.parent.add_element(self)
+
+class subTitle(MesaTextLabel):
+    def __init__(self, parent, text) -> None:
+        super().__init__(parent)
+        self.set_width_as_parent()
+        self.set_fixed_height(30)
+        self.declare_font_type("NOSYS")
+        self.load_ttf("res/NotoSansJP-Regular.ttf")
+        self.set_font_size(19)
+        self.set_text_color("black")
+        self.set_text(text)
+        self.set_color_as_parent()
+        #self.border("black", 2)
+        #self.center_text()
+        self.parent.add_element(self)
+
+class setumei(MesaStackVertical):
+    def __init__(self,parent) -> None:
+        super().__init__(parent)
+        self.set_width_as_display()
+        self.set_fixed_height(300)
+        self.set_background_color("#F3F3F3")
+        self.text1=NormalText(self,"本体サイズ 　　:  278.2mm×206.2mm×15.7mm")
+        self.text2=NormalText(self,"スクリーン 　　:  12.4インチ")
+        self.text3=NormalText(self,"解像度 　　　　:  1536×1024")
+        self.text4=NormalText(self,"メモリ　　 　　:  4GB")
+        self.text5=NormalText(self,"ストレージ 　　:  リーズナブル ドライブ(SSD)")
+        self.text6=NormalText(self,"ソフトウェア 　:  Windows11 Home")
+        self.text7=NormalText(self,"プロセッサ　 　:  クアッドコア第11世代インテルCore")
+        self.text8=NormalText(self,"バッテリー　 　:  通常デバイス使用で最大13.5時間")
+        self.set_margin(0,6)
+        self.parent.add_element(self)
+
+class setumeibox(MesaStackVertical):
+    def __init__(self,parent) -> None:
+        super().__init__(parent)
+        self.set_width_as_display()
+        self.set_fixed_height(250)
+        self.set_background_color("#F3F3F3")
+        self.title=subTitle(self,"詳細")
+        self.setumeitext=setumei(self)
+        self.set_margin(30,20)
+        self.parent.add_element(self)
+
 class textbox1(MesaStackHorizontal):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_width_as_display()
-        self.set_fixed_height(70)
+        self.set_fixed_height(60)
         self.set_background_color("#F3F3F3")
         self.rentaru=rentarutext(self,"レンタル可能")
         self.daisu=daisu(self)
         self.number=number(self.daisu,"  3")
+        self.parent.add_element(self)
+
+class calendarTitle(MesaTextLabel):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_width_as_parent()
+        self.set_fixed_height(60)
+        self.declare_font_type("NOSYS")
+        self.load_ttf("res/NotoSansJP-Regular.ttf")
+        self.set_font_size(22)
+        self.set_text_color("black")
+        self.set_text("レンタル期間選択")
+        #self.border("black", 2)
+        self.set_color_as_parent()
+        self.set_margin(0,10)
+        self.center_text()
         self.parent.add_element(self)
 
 class scroll(MesaStackVertical):
@@ -162,6 +221,8 @@ class scroll(MesaStackVertical):
         self.PCname=PCtitle(self)
         self.image=imagebox(self,"res/pcbig1.png")
         self.text1=textbox1(self)
+        self.text2=setumeibox(self)
+        self.text3=calendarTitle(self)
         self.parent.add_element(self)
 
 class MainScene(MesaScene):
