@@ -31,7 +31,6 @@ class MesaSlidablePanelVertical(MesaStackVertical):
         return super().late_init()
 
     def remake_slider(self):
-        print("im redone :)", self)
         self.middle_x = 0
         self.middle_y = self.height // 2
         self.slider = pg.Rect(

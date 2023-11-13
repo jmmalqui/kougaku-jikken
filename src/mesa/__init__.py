@@ -10,3 +10,4 @@ from mesa.stack import *
 from mesa.style import *
 from mesa.text_buffer import *
 from mesa.transform import *
+from mesa.draw import *
