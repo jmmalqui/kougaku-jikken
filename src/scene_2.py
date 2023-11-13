@@ -82,15 +82,15 @@ class imagebox(MesaStackVertical):
 class rentarutext(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
-        self.set_fixed_width(176)
-        self.set_fixed_height(55)
+        self.set_fixed_width(180)
+        self.set_fixed_height(57)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(18)
         self.set_text_color("black")
         self.set_text(text)
-        self.border("black", 2)
-        self.set_background_color("#F3F3F3")
+        #self.border("#424242", 2)
+        self.set_background_color("#C9E7EB")
         self.center_text()
         self.set_margin(25,7)
         self.parent.add_element(self)
@@ -177,18 +177,38 @@ class setumeibox(MesaStackVertical):
     def __init__(self,parent) -> None:
         super().__init__(parent)
         self.set_width_as_display()
-        self.set_fixed_height(250)
+        self.set_fixed_height(240)
         self.set_background_color("#F3F3F3")
         self.title=subTitle(self,"詳細")
         self.setumeitext=setumei(self)
-        self.set_margin(30,20)
+        self.set_margin(24,15)
+        self.parent.add_element(self)
+
+class CustomBox1(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(280)
+        self.set_fixed_height(2)
+        self.set_background_color("#F3F3F3")
+        self.border_up("black",1)
+        self.set_margin(24,0)
+        self.parent.add_element(self)
+
+class CustomBox2(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(220)
+        self.set_fixed_height(2)
+        self.set_background_color("#F3F3F3")
+        self.border_up("black",1)
+        self.set_margin(24,0)
         self.parent.add_element(self)
 
 class textbox1(MesaStackHorizontal):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_width_as_display()
-        self.set_fixed_height(60)
+        self.set_fixed_height(80)
         self.set_background_color("#F3F3F3")
         self.rentaru=rentarutext(self,"レンタル可能")
         self.daisu=daisu(self)
@@ -221,7 +241,9 @@ class scroll(MesaStackVertical):
         self.PCname=PCtitle(self)
         self.image=imagebox(self,"res/pcbig1.png")
         self.text1=textbox1(self)
+        self.sen1=CustomBox1(self)
         self.text2=setumeibox(self)
+        self.sen=CustomBox2(self)
         self.text3=calendarTitle(self)
         self.parent.add_element(self)
 
