@@ -80,7 +80,6 @@ class DescriptorVerticalPanel(MesaStackVertical):
         self.set_fixed_width(200)
         self.set_height_as_parent()
         self.set_color_as_parent()
-        self.enable_scrolling()
         self.cus = CustomTitle(self, "MesaStackVertical", 200)
         self.description = CustomText(self, "コンポネントを縦に揃える。", 150)
         self.cus = CustomTitle(self, "MesaStackHorizontal", 200)
@@ -96,7 +95,6 @@ class DogImage(MesaImage):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_fixed_width(260)
-        self.set_margin(20, 20)
         self.set_height_as_parent()
         self.set_background_color("#141115")
         self.set_image("res/wanchan.jpg")
@@ -112,8 +110,6 @@ class DogImage(MesaImage):
 class DogImage2(MesaImage):
     def __init__(self, parent) -> None:
         super().__init__(parent)
-        self.set_margin(20, 20)
-
         self.set_fixed_width(260)
         self.set_height_as_parent()
         self.set_background_color("#141115")
@@ -130,7 +126,7 @@ class DogImage2(MesaImage):
 class MyInputBox(MesaTextBoxInput):
     def __init__(self, parent) -> None:
         super().__init__(parent)
-        self.set_fixed_height(25)
+        self.set_fixed_height(50)
         self.set_width_as_parent()
         self.declare_font_type("NOSYS")
         self.load_ttf("res/JetBrainsMonoNerdFont-LightItalic.ttf")
@@ -180,13 +176,11 @@ class AnimationZone(MesaStackHorizontal):
 class DescriptorMiddlePanel(MesaStackVertical):
     def __init__(self, parent) -> None:
         super().__init__(parent)
-        self.enable_scrolling()
         self.set_fixed_width(520)
         self.set_height_as_parent()
         self.set_color_as_parent()
         self.cus = CustomTitle(self, "MesaImage", 520)
         self.dogcontainer = MesaStackHorizontal(self)
-        self.dogcontainer.enable_scrolling()
         self.dogcontainer.set_width_as_parent()
         self.dogcontainer.set_fixed_height(200)
         self.description = DogImage(self.dogcontainer)
@@ -195,8 +189,6 @@ class DescriptorMiddlePanel(MesaStackVertical):
         self.cus = CustomTitle(self, "MesaTextBoxInput", 520)
         self.description = CustomText(self, "テキスト入力", 30)
         self.cus = MyInputBox(self)
-        self.cus = MyInputBox(self)
-
         self.cus = CustomTitle(self, "Animation", 520)
         self.animzone = AnimationZone(self)
         self.parent.add_element(self)

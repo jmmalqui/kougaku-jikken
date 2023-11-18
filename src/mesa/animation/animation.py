@@ -182,8 +182,7 @@ class DynamicObject:
         self.animation_fired = True
         self.animation_type = AnimationTypes.UNIDIRECTIONAL
         self.begin_timestamp = time.time()
-        if type(target) != type(self.animation_object):
-            raise TypeError("Data types mismatch")
+
         if isinstance(self.animation_object, Union[pg.Vector2, pg.Vector3]):
             self.begin_animation_object = self.animation_object.copy()
             self.target_animation_object = target.copy()

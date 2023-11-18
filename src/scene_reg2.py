@@ -7,26 +7,31 @@ class MainScene(MesaScene):
         super().__init__(core, scene_name, manager)
         self.set_background_color("#E6E6E6")
         self.container = MesaStackVertical(self)
-        self.title1 = Title1(self.container, "新規会員登録")  # 上部ラベル
-        self.MyButton1 = MyButton1(self.title1, "＜", "black", "white")
-        self.text1 = CustomText1(self.container, "メールアドレスを入力してください", 55)
-        self.text2 = CustomText2(self.container, "メールアドレス", 30)
+        self.title1 = Title1(self.container,'新規会員登録') #上部ラベル
+        self.MyButton1 = MyButton1(self.title1,'＜',"black","white")
+        self.text1 = CustomText1(self.container,'メールアドレスを入力してください',55)
+        self.text2 = CustomText2(self.container,'メールアドレス',30)
         self.input1 = MyInputBox1(self.container)
-        self.MyButton2 = MyButton2(self.container, "会員登録する", "white", "black")
+        self.MyButton2 = MyButton2(self.container,'会員登録する',"white","black")
         self.container.set_as_core()
         self.container.build()
 
-        self.MyButton2.set_signal(self.end_new_registration)
+class MyApplication(MesaCore):
+    def __init__(self) -> None:
+        super().__init__()
+        self.set_application_name("MyApp")
+        self.set_rendering_flags(pg.SRCALPHA)
+        self.set_display_size(360, 600)
+        self.set_background_color("black")
+        self.set_clock(60)
+        self.main_scene = MainScene(self, "main", self.scene_manager)
+        self.scene_manager.set_init_scene("main")
 
-    def end_new_registration(self):
-        self.manager.go_to("regist-end")
-
-
-# ラベル（上部）
+#ラベル（上部）
 class Title1(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
-
+        
         self.set_width_as_parent()
         self.set_fixed_height(60)
         self.declare_font_type("NOSYS")
@@ -38,14 +43,13 @@ class Title1(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
-
-# テキスト（メールアドレスを入力してください）
+#テキスト（メールアドレスを入力してください）
 class CustomText1(MesaTextLabel):
     def __init__(self, parent, text, height) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(height)
-        self.set_margin(20, 0)
+        self.set_margin(20,0)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(13)
@@ -55,8 +59,7 @@ class CustomText1(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
-
-# Renteck文字
+#Renteck文字
 class Title2(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
@@ -71,10 +74,11 @@ class Title2(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
-
-# 戻るボタン（画面左上）
+#戻るボタン（画面左上）
 class MyButton1(MesaButtonText):
-    def __init__(self, parent, text, textcolor, bgcolor) -> None:
+    def __init__(
+        self, parent, text, textcolor, bgcolor
+    ) -> None:
         super().__init__(parent)
         self.set_fixed_height(60)
         self.set_fixed_width(60)
@@ -87,13 +91,10 @@ class MyButton1(MesaButtonText):
         self.center_text()
         self.parent.add_element(self)
         self.set_signal(self.show_press)
-
-    # ボタンが押されたときの処理（前画面に戻る）
-    def show_press(self):
-        ...
-
-
-# テキスト（メールアドレス）
+    #ボタンが押されたときの処理（前画面に戻る）
+    def show_press(self):...
+        
+#テキスト（メールアドレス）
 class CustomText2(MesaTextLabel):
     def __init__(self, parent, text, height) -> None:
         super().__init__(parent)
@@ -108,8 +109,7 @@ class CustomText2(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
-
-# 入力テキストボックス（メールアドレス）
+#入力テキストボックス（メールアドレス）
 class MyInputBox1(MesaTextBoxInput):
     def __init__(self, parent) -> None:
         super().__init__(parent)
@@ -126,7 +126,7 @@ class MyInputBox1(MesaTextBoxInput):
         self.parent.add_element(self)
 
 
-# 入力テキストボックス（パスワード）
+#入力テキストボックス（パスワード）
 class MyInputBox2(MesaTextBoxInput):
     def __init__(self, parent) -> None:
         super().__init__(parent)
@@ -142,10 +142,11 @@ class MyInputBox2(MesaTextBoxInput):
         self.center_text_vertical()
         self.parent.add_element(self)
 
-
-# ログインボタン
+#ログインボタン
 class MyButton2(MesaButtonText):
-    def __init__(self, parent, text, textcolor, bgcolor) -> None:
+    def __init__(
+        self, parent, text, textcolor, bgcolor
+    ) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(150)
@@ -159,6 +160,8 @@ class MyButton2(MesaButtonText):
         self.center_text()
         self.parent.add_element(self)
         self.set_signal(self.show_press)
+    def show_press(self):...
 
-    def show_press(self):
-        ...
+
+app = MyApplication()
+app.run()

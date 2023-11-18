@@ -50,7 +50,7 @@ class MesaTextBoxInput(_MesaContainer):
         self.center_text_vertical()
 
     def get_written_text(self):
-        return self.buffer.buffer
+        return self.buffer
 
     def _get_pointer_position(self):
         return (sum([x[4] for x in self.metrics[: self.buffer.pointer]]),)
