@@ -61,8 +61,13 @@ class _MesaContainer:
             self.rel = None
             self.core = self.scene.manager.core
 
+    def get_real_height(self):
+        return self.height + 2 * self.marginy
+
+    def get_real_width(self):
+        return self.width + 2 * self.marginx
+
     def enable_scrolling(self):
-        print(self.surface_type)
         if self.surface_type == MesaCoreFlag.CORESURFACE:
             raise ValueError("Core Surfaces can not use scrolling.")
         self.can_scroll = True
@@ -382,10 +387,7 @@ class _MesaContainer:
                     self.parent.surface.blit(
                         self.surface, self.position + self.scrolloffset
                     )
-                    if self._is_container_hovered():
-                        self.border("red", 2)
-                    else:
-                        self.borderless()
+
         else:
             thick = 2
             if self.surface_type != MesaCoreFlag.CORESURFACE:
