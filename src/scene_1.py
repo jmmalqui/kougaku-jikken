@@ -36,7 +36,6 @@ class kage(MesaStackVertical):
         self.border_up("#F3F3F3", 7)
         self.set_margin(9,5)
 
-
 class pcImage(MesaImage):
     def __init__(self, parent, image) -> None:
         super().__init__(parent)
@@ -271,7 +270,7 @@ class scroll(MesaStackVertical):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
-        self.set_height_as_parent()
+        self.set_height_as_remaining_area()
         self.set_background_color("#F3F3F3")
         self.enable_scrolling()
         self.kage1 = kage(self, 358, 145)
