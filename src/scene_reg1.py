@@ -5,7 +5,7 @@ import pygame as pg
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
-        self.set_background_color("#E6E6E6")
+        self.set_background_color("#F6F6F6")
         self.container = MesaStackVertical(self)
         self.title1 = Title1(self.container,'ログイン') #上部ラベル
         self.MyButton1 = MyButton1(self.title1,'＜',"black","white")
@@ -15,8 +15,8 @@ class MainScene(MesaScene):
         self.text2 = CustomText2(self.container,'パスワード',30)
         self.input2 = MyInputBox2(self.container)
         self.MyButton2 = MyButton2(self.container,'ログイン',"white","black")
-        self.text2 = CustomText2(self.container,'アカウントをお持ちでない方',15)
-        self.MyButton3 = MyButton3(self.container,'新規会員登録',"blue","#E6E6E6")
+        self.text2 = CustomText3(self.container,'アカウントをお持ちでない方',15)
+        self.MyButton3 = MyButton3(self.container,'新規会員登録',"blue","#F6F6F6")
         self.container.set_as_core()
         self.container.build()
 
@@ -78,7 +78,7 @@ class Title2(MesaTextLabel):
         self.set_font_size(55)
         self.set_text_color("black")
         self.set_text(text)
-        self.set_background_color("#E6E6E6")
+        self.set_background_color("#F6F6F6")
         self.center_text()
         self.parent.add_element(self)
 
@@ -89,13 +89,13 @@ class CustomText1(MesaTextLabel):
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(height)
+        self.set_margin(30,0)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(15)
         self.set_text_color("#0D1321")
         self.set_text(text)
-        self.set_background_color("#E6E6E6")
-        self.center_text()
+        self.set_background_color("#F6F6F6")
         self.parent.add_element(self)
 
 #入力テキストボックス（メールアドレス）
@@ -120,13 +120,13 @@ class CustomText2(MesaTextLabel):
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(height)
+        self.set_margin(30,0)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(15)
         self.set_text_color("#0D1321")
         self.set_text(text)
-        self.set_background_color("#E6E6E6")
-        self.center_text()
+        self.set_background_color("#F6F6F6")
         self.parent.add_element(self)
 
 #入力テキストボックス（パスワード）
@@ -166,7 +166,7 @@ class MyButton2(MesaButtonText):
     def show_press(self):...
 
 #テキスト（アカウントをお持ちでない方）
-class CustomText2(MesaTextLabel):
+class CustomText3(MesaTextLabel):
     def __init__(self, parent, text, height) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
@@ -176,7 +176,7 @@ class CustomText2(MesaTextLabel):
         self.set_font_size(13)
         self.set_text_color("#0D1321")
         self.set_text(text)
-        self.set_background_color("#E6E6E6")
+        self.set_background_color("#F6F6F6")
         self.center_text()
         self.parent.add_element(self)
 
@@ -185,8 +185,9 @@ class MyButton3(MesaButtonText):
         self, parent, text, textcolor, bgcolor
     ) -> None:
         super().__init__(parent)
-        self.set_width_as_parent()
-        self.set_fixed_height(15)
+        self.set_fixed_width(360)
+        self.set_fixed_height(18)
+        self.set_margin(140,0)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(13)
@@ -194,6 +195,7 @@ class MyButton3(MesaButtonText):
         self.set_text(text)
         self.set_background_color(bgcolor)
         self.center_text()
+        self.border_down("blue",1)
         self.parent.add_element(self)
         self.set_signal(self.show_press)
     def show_press(self):...

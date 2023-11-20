@@ -382,10 +382,7 @@ class _MesaContainer:
                     self.parent.surface.blit(
                         self.surface, self.position + self.scrolloffset
                     )
-                    if self._is_container_hovered():
-                        self.border("red", 2)
-                    else:
-                        self.borderless()
+                 
         else:
             thick = 2
             if self.surface_type != MesaCoreFlag.CORESURFACE:
