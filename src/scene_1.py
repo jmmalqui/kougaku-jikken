@@ -35,6 +35,11 @@ class kage(MesaStackVertical):
         self.set_fixed_height(height)
         self.set_background_color("#E6E6E6")
         self.parent.add_element(self)
+
+        self.border_left("#F3F3F3", 7)
+        self.border_up("#F3F3F3", 7)
+        self.set_margin(9,5)
+
         self.border_left("#E6E6E6", 7)
         self.border_up("#E6E6E6", 7)
         self.set_margin(9, 5)
@@ -79,6 +84,7 @@ class PCname1(MesaTextLabel):
         self.set_font_size(20)
         self.set_text_color("black")
         self.set_text(text)
+        self.border_left("black", 3)
         self.set_background_color("white")
         self.parent.add_element(self)
 
@@ -93,7 +99,7 @@ class PCname2(MesaTextLabel):
         self.set_font_size(size)
         self.set_text_color("black")
         self.set_text(text)
-        self.border_left("black", 4)
+        self.border_left("black", 3)
         self.set_background_color("white")
         self.parent.add_element(self)
 
@@ -104,10 +110,12 @@ class PCtitle1(MesaStackVertical):
         self.set_fixed_width(200)
         self.set_height_as_parent()
         self.set_color_as_parent()
-        self.pcname1 = PCname1(self, "  Microsoft", 25)
-        self.pcname2 = PCname2(self, "  Surface Laptop Go2", 17, 25)
-        self.buttom = seemore(self)
-        self.border_left("black", 4)
+
+        self.pcname1=PCname1(self,"  Microsoft",25)
+        self.pcname2=PCname2(self,"  Surface Laptop Go2",17,25)
+        self.buttom=seemore(self)
+        #self.border_left("black", 4)
+
         self.parent.add_element(self)
         self.set_margin(5, 12)
 
@@ -119,10 +127,12 @@ class PCtitle2(MesaStackVertical):
         self.set_fixed_height(50)
         self.set_height_as_parent()
         self.set_color_as_parent()
-        self.pcname1 = PCname1(self, "  Lenovo", 25)
-        self.pcname2 = PCname2(self, "  IdeaPad Slim 370i", 17, 25)
-        self.buttom = seemore(self)
-        self.border_left("black", 4)
+
+        self.pcname1=PCname1(self,"  Lenovo",25)
+        self.pcname2=PCname2(self,"  IdeaPad Slim 370i",17,25)
+        self.buttom=seemore(self)
+        #self.border_left("black", 4)
+
         self.parent.add_element(self)
         self.set_margin(5, 12)
 
@@ -134,10 +144,12 @@ class PCtitle3(MesaStackVertical):
         self.set_fixed_height(50)
         self.set_height_as_parent()
         self.set_color_as_parent()
-        self.pcname1 = PCname1(self, "  HP", 25)
-        self.pcname2 = PCname2(self, "   Spectre x360 6F8L0PA-AAAB", 13, 25)
-        self.buttom = seemore(self)
-        self.border_left("black", 4)
+
+        self.pcname1=PCname1(self,"  HP",25)
+        self.pcname2=PCname2(self,"   Spectre x360 6F8L0PA-AAAB",13,25)
+        self.buttom=seemore(self)
+        #self.border_left("black", 3)
+
         self.parent.add_element(self)
         self.set_margin(5, 12)
 
@@ -149,10 +161,12 @@ class PCtitle4(MesaStackVertical):
         self.set_fixed_height(50)
         self.set_height_as_parent()
         self.set_color_as_parent()
-        self.pcname1 = PCname1(self, "  dynabook", 25)
-        self.pcname2 = PCname2(self, "  C7 P2C7VBEL", 16, 25)
-        self.buttom = seemore(self)
-        self.border_left("black", 4)
+
+        self.pcname1=PCname1(self,"  dynabook",25)
+        self.pcname2=PCname2(self,"  C7 P2C7VBEL",16,25)
+        self.buttom=seemore(self)
+        #self.border_left("black", 4)
+
         self.parent.add_element(self)
         self.set_margin(5, 12)
 
@@ -164,10 +178,12 @@ class PCtitle5(MesaStackVertical):
         self.set_fixed_height(50)
         self.set_height_as_parent()
         self.set_color_as_parent()
-        self.pcname1 = PCname1(self, "  ASUS", 25)
-        self.pcname2 = PCname2(self, "   TUF Dash F15 FX517ZC", 14, 25)
-        self.buttom = seemore(self)
-        self.border_left("black", 4)
+
+        self.pcname1=PCname1(self,"  ASUS",25)
+        self.pcname2=PCname2(self,"   TUF Dash F15 FX517ZC",14,25)
+        self.buttom=seemore(self)
+        #self.border_left("black", 4)
+
         self.parent.add_element(self)
         self.set_margin(5, 12)
 
@@ -301,12 +317,13 @@ class scroll(MesaStackVertical):
         self.box4 = CustomBox(self.kage4, 335, 130, "white")
         self.kage5 = kage(self, 358, 145)
         self.box5 = CustomBox(self.kage5, 335, 130, "white")
-        self.inbox1 = inbox1(self.box1)
-        # self.maru=maru(self.box1)
-        self.inbox2 = inbox2(self.box2)
-        self.inbox3 = inbox3(self.box3)
-        self.inbox4 = inbox4(self.box4)
-        self.inbox5 = inbox5(self.box5)
+
+        self.inbox1=inbox1(self.box1)
+        self.inbox2=inbox2(self.box2)
+        self.inbox3=inbox3(self.box3)
+        self.inbox4=inbox4(self.box4)
+        self.inbox5=inbox5(self.box5)
+
         self.parent.add_element(self)
 
 
