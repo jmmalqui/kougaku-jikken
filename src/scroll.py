@@ -63,11 +63,6 @@ class MovingDogButton(MesaImageButton):
         return super().late_init()
 
     def update(self):
-        if self._is_container_hovered():
-            self.border("black", 5)
-        else:
-            self.borderless()
-
         return super().update()
 
     def add(self):
