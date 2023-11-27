@@ -65,6 +65,9 @@ class CustomText1(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
+<<<<<<< HEAD
+#戻るボタン（画面左上）
+=======
 
 # Renteck文字
 class Title2(MesaTextLabel):
@@ -83,6 +86,7 @@ class Title2(MesaTextLabel):
 
 
 # 戻るボタン（画面左上）
+>>>>>>> 22be1216d2343e80dbb8019c016a9f534ff52d72
 class MyButton1(MesaButtonText):
     def __init__(self, parent, text, textcolor, bgcolor) -> None:
         super().__init__(parent)

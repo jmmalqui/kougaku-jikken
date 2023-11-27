@@ -54,8 +54,26 @@ class Title1(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
+<<<<<<< HEAD
+class Image1(MesaImage):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(360)
+        self.set_fixed_height(70)
+        self.set_margin(30,0)
+        self.set_background_color("#F6F6F6")
+        self.set_image("res/check.PNG")
+        self.center_element()
+        self.parent.add_element(self)
+    def late_init(self):
+        self.resize_match_parent_width()
+        return super().late_init()
+
+#テキスト（仮登録が完了しました）
+=======
 
 # テキスト（仮登録が完了しました）
+>>>>>>> 22be1216d2343e80dbb8019c016a9f534ff52d72
 class Title2(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
