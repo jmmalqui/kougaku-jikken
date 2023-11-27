@@ -1,24 +1,29 @@
 from mesa import *
 import pygame as pg
 
+
 sentence1="※まだ会員登録は完了してません。\n\n"\
           "ご登録いただいたメールアドレス宛に、本登録を行うためのメールをお送りいたしました。"\
           "メール本文に記載されている認証コードを入力して会員登録を完了させてください。\n\n"\
           "※本登録手続きメールが届かない場合、入力したメールアドレスが間違っている可能性があります。"\
           "再度、最初から新規会員登録を行ってください"
 
+
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
         self.set_background_color("#F6F6F6")
         self.container = MesaStackVertical(self)
+
         self.title1 = Title1(self.container,'仮登録完了') #上部ラベル
         self.image1=Image1(self.container)
         self.title2 = Title2(self.container,'仮登録が完了しました')
         self.box=box(self.container)
         self.text2 = CustomText2(self.container,sentence1,160)
+
         self.container.set_as_core()
         self.container.build()
+
 
 class MyApplication(MesaCore):
     def __init__(self) -> None:
@@ -31,11 +36,12 @@ class MyApplication(MesaCore):
         self.main_scene = MainScene(self, "main", self.scene_manager)
         self.scene_manager.set_init_scene("main")
 
-#ラベル（上部）
+
+# ラベル（上部）
 class Title1(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
-        
+
         self.set_width_as_parent()
         self.set_fixed_height(60)
         self.declare_font_type("NOSYS")
@@ -47,6 +53,7 @@ class Title1(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
+<<<<<<< HEAD
 class Image1(MesaImage):
     def __init__(self, parent) -> None:
         super().__init__(parent)
@@ -62,12 +69,18 @@ class Image1(MesaImage):
         return super().late_init()
 
 #テキスト（仮登録が完了しました）
+=======
+
+# テキスト（仮登録が完了しました）
+>>>>>>> 22be1216d2343e80dbb8019c016a9f534ff52d72
 class Title2(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
+
         self.set_fixed_height(60)
         self.set_margin(50,0)
+
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(16)
@@ -76,6 +89,7 @@ class Title2(MesaTextLabel):
         self.set_background_color("#F6F6F6")
         self.center_text()
         self.parent.add_element(self)
+
 
 class CustomText1(MesaTextLabel):
     def __init__(self, parent, text, height) -> None:
@@ -91,6 +105,7 @@ class CustomText1(MesaTextLabel):
         self.set_background_color("#F6F6F6")
         self.center_text()
         self.parent.add_element(self)
+
 
 class MyInputBox1(MesaTextBoxInput):
     def __init__(self, parent) -> None:
@@ -108,9 +123,7 @@ class MyInputBox1(MesaTextBoxInput):
         self.parent.add_element(self)
 
 class MyButton1(MesaButtonText):
-    def __init__(
-        self, parent, text, textcolor, bgcolor
-    ) -> None:
+    def __init__(self, parent, text, textcolor, bgcolor) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(77)
@@ -124,7 +137,10 @@ class MyButton1(MesaButtonText):
         self.center_text()
         self.parent.add_element(self)
         self.set_signal(self.show_press)
-    def show_press(self):...
+
+    def show_press(self):
+        ...
+
 
 #テキスト（sentence1）
 class CustomText2(MesaTextLabel):
