@@ -13,6 +13,7 @@ class MainScene(MesaScene):
         self.set_background_color("#F6F6F6")
         self.container = MesaStackVertical(self)
         self.title1 = Title1(self.container,'仮登録完了') #上部ラベル
+        self.image1=Image1(self.container)
         self.title2 = Title2(self.container,'仮登録が完了しました')
         self.box=box(self.container)
         self.text2 = CustomText2(self.container,sentence1,160)
@@ -45,6 +46,20 @@ class Title1(MesaTextLabel):
         self.set_background_color("white")
         self.center_text()
         self.parent.add_element(self)
+
+class Image1(MesaImage):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(360)
+        self.set_fixed_height(70)
+        self.set_margin(30,0)
+        self.set_background_color("#F6F6F6")
+        self.set_image("res/check.PNG")
+        self.center_element()
+        self.parent.add_element(self)
+    def late_init(self):
+        self.resize_match_parent_width()
+        return super().late_init()
 
 #テキスト（仮登録が完了しました）
 class Title2(MesaTextLabel):

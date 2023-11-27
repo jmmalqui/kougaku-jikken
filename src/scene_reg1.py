@@ -8,7 +8,7 @@ class MainScene(MesaScene):
         self.set_background_color("#F6F6F6")
         self.container = MesaStackVertical(self)
         self.title1 = Title1(self.container,'ログイン') #上部ラベル
-        self.MyButton1 = MyButton1(self.title1,'＜',"black","white")
+        self.MyButton1 = MyButton1(self.title1,'＜',"#818181","white")
         self.title2 = Title2(self.container,'Renteck')#RRenteck
         self.text1 = CustomText1(self.container,'メールアドレス',30)
         self.input1 = MyInputBox1(self.container)
