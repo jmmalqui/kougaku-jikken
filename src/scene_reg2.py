@@ -65,28 +65,7 @@ class CustomText1(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
-<<<<<<< HEAD
 #戻るボタン（画面左上）
-=======
-
-# Renteck文字
-class Title2(MesaTextLabel):
-    def __init__(self, parent, text) -> None:
-        super().__init__(parent)
-        self.set_fixed_height(120)
-        self.set_width_as_display()
-        self.declare_font_type("NOSYS")
-        self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(55)
-        self.set_text_color("black")
-        self.set_text(text)
-        self.set_background_color("#F6F6F6")
-        self.center_text()
-        self.parent.add_element(self)
-
-
-# 戻るボタン（画面左上）
->>>>>>> 22be1216d2343e80dbb8019c016a9f534ff52d72
 class MyButton1(MesaButtonText):
     def __init__(self, parent, text, textcolor, bgcolor) -> None:
         super().__init__(parent)

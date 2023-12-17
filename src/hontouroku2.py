@@ -1,28 +1,19 @@
 from mesa import *
 import pygame as pg
 
-
-sentence1="※まだ会員登録は完了してません。\n\n"\
-          "ご登録いただいたメールアドレス宛に、本登録を行うためのメールをお送りいたしました。"\
-          "メール本文に記載されている認証コードを入力して会員登録を完了させてください。\n\n"\
-          "※本登録手続きメールが届かない場合、入力したメールアドレスが間違っている可能性があります。"\
-          "再度、最初から新規会員登録を行ってください"
-
+sentence1="この度は「Renteck」にご登録いただきありがとうございます。"\
+          "引き続きご利用の方は下のボタンからトップページへお戻りください。"
 
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
         self.set_background_color("#F3F3F3")
         self.container = MesaStackVertical(self)
-
-        self.title1 = Title1(self.container,'仮登録完了') #上部ラベル
-        self.image1=Image1(self.container)
+        self.title1 = Title1(self.container,'Renteck') #上部ラベル
         self.box=box(self.container)
-        self.text2 = CustomText2(self.container,sentence1,160)
-
+        self.MyButton1 = MyButton1(self.container,'トップに戻る',"white","black")
         self.container.set_as_core()
         self.container.build()
-
 
 class MyApplication(MesaCore):
     def __init__(self) -> None:
@@ -35,64 +26,39 @@ class MyApplication(MesaCore):
         self.main_scene = MainScene(self, "main", self.scene_manager)
         self.scene_manager.set_init_scene("main")
 
-
-# ラベル（上部）
+#ラベル（上部）
 class Title1(MesaTextLabel):
     def __init__(self, parent, text) -> None:
         super().__init__(parent)
-
+        
         self.set_width_as_parent()
         self.set_fixed_height(60)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(20)
+        self.set_font_size(28)
         self.set_text_color("black")
         self.set_text(text)
         self.set_background_color("white")
         self.center_text()
         self.parent.add_element(self)
 
+#画像(予約が完了しました)
 class Image1(MesaImage):
     def __init__(self, parent) -> None:
         super().__init__(parent)
-        self.set_fixed_width(360)
+        self.set_width_as_parent()
         self.set_fixed_height(140)
-        self.set_margin(30,10)
+        self.set_margin(30,0)
         self.set_background_color("#F3F3F3")
-        self.set_image("res/check.png")
+        self.set_image("res/hontouroku2.PNG")
         self.center_element()
         self.parent.add_element(self)
     def late_init(self):
         self.resize_match_parent_width()
         return super().late_init()
 
-
-
-
-
-
-class MyButton1(MesaButtonText):
-    def __init__(self, parent, text, textcolor, bgcolor) -> None:
-        super().__init__(parent)
-        self.set_width_as_parent()
-        self.set_fixed_height(77)
-        self.set_margin(70, 15)
-        self.declare_font_type("NOSYS")
-        self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(20)
-        self.set_text_color(textcolor)
-        self.set_text(text)
-        self.set_background_color(bgcolor)
-        self.center_text()
-        self.parent.add_element(self)
-        self.set_signal(self.show_press)
-
-    def show_press(self):
-        ...
-
-
-#テキスト（sentence1）
-class CustomText2(MesaTextLabel):
+#テキスト(sentence1)
+class CustomText1(MesaTextLabel):
     def __init__(self, parent, text, height) -> None:
         super().__init__(parent)
         #self.set_width_as_parent()
@@ -102,22 +68,43 @@ class CustomText2(MesaTextLabel):
         #self.set_margin(0,)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(10)
-        self.set_text_color("#0D1321")
+        self.set_font_size(12)
+        self.set_text_color("#818181")
         self.set_text(text)
-        self.set_background_color("#F6F6F6")
+        self.set_background_color("#F3F3F3")
         self.center_text()
         self.parent.add_element(self)
+
+#トップに戻る
+class MyButton1(MesaButtonText):
+    def __init__(
+        self, parent, text, textcolor, bgcolor
+    ) -> None:
+        super().__init__(parent)
+        self.set_width_as_parent()
+        self.set_fixed_height(47)
+        self.set_margin(70, 0)
+        self.declare_font_type("NOSYS")
+        self.load_ttf("res/NotoSansJP-Regular.ttf")
+        self.set_font_size(20)
+        self.set_text_color(textcolor)
+        self.set_text(text)
+        self.set_background_color(bgcolor)
+        self.center_text()
+        self.parent.add_element(self)
+        self.set_signal(self.show_press)
+    def show_press(self):...
 
 class box(MesaStackVertical):
     def __init__(self, parent) -> None:
         super().__init__(parent)
+        self.image1=Image1(self)
+        self.text1 = CustomText1(self,sentence1,60)
         self.set_width_as_parent()
-        self.set_fixed_height(180)
+        self.set_fixed_height(300)
         self.set_color_as_parent()
-        self.MyButton1 = MyButton1(self,'',"white","black")
-        self.set_margin(0,15)
-        self.set_background_color("#F6F6F6")
+        self.set_margin(0,35)
+        self.set_background_color("#F3F3F3")
         self.parent.add_element(self)
 
 app = MyApplication()
