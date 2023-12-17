@@ -219,26 +219,17 @@ class buttonbox(MesaStackHorizontal):
         self.button2=kakuteiButton(self)
         self.parent.add_element(self)
 
-class scroll(MesaStackVertical):
-    def __init__(self, parent) -> None:
-        super().__init__(parent)
-        self.set_width_as_parent()
-        self.set_height_as_parent()
-        self.set_background_color("#F3F3F3")
-        self.enable_scrolling()
-        self.title=titlebox(self)
-        self.text=textbox(self)
-        self.box=informationbox(self)
-        self.button=buttonbox(self)
-        self.parent.add_element(self)
-
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
         self.set_background_color("white")
         self.container = MesaStackVertical(self)
         self.title=Title(self.container, "会員本登録")
-        self.scrool=scroll(self.container)
+        self.title=titlebox(self.container)
+        self.text=textbox(self.container)
+        self.box=informationbox(self.container)
+        self.button=buttonbox(self.container)
+        self.set_background_color("#F3F3F3")
         self.container.set_as_core()
         self.container.build()
 

@@ -231,16 +231,6 @@ class logoutButton(MesaButtonText):
         self.set_margin(95,30)
         self.parent.add_element(self)
 
-class scroll(MesaStackVertical):
-    def __init__(self, parent) -> None:
-        super().__init__(parent)
-        self.set_width_as_parent()
-        self.set_height_as_parent()
-        self.set_background_color("#F3F3F3")
-        self.enable_scrolling()
-        self.box=box1(self)
-        self.parent.add_element(self)
-
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
@@ -248,7 +238,8 @@ class MainScene(MesaScene):
         self.container = MesaStackVertical(self)
         self.title=Title(self.container, "マイページ")
         self.modoru=modoru(self.title)
-        self.scrool=scroll(self.container)
+        self.box=box1(self.container)
+        self.set_background_color("#F3F3F3")
         self.container.set_as_core()
         self.container.build()
 

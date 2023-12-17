@@ -27,7 +27,7 @@ class mainTitle(MesaTextLabel):
         self.set_text_color("black")
         self.set_text("レンタル期間選択")
         #self.border_down("#DDF2FD", 6)
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.center_text()
         self.parent.add_element(self)
 
@@ -36,7 +36,7 @@ class textbox(MesaStackVertical):
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(75)
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.title=mainTitle(self)
         self.text=NormalText1(self)
         self.parent.add_element(self)
@@ -52,7 +52,7 @@ class NormalText1(MesaTextLabel):
         self.set_font_size(12)
         self.set_text_color("black")
         self.set_text("レンタル開始日時と終了日時を選択してください")
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.center_text()
         self.set_margin(0,2)
         #self.center_vertical()
@@ -68,7 +68,7 @@ class NormalText2(MesaTextLabel):
         self.set_font_size(15)
         self.set_text_color("black")
         self.set_text(text)
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.set_margin(3,2)
         self.parent.add_element(self)
 
@@ -82,7 +82,7 @@ class hinichitext(MesaTextLabel):
         self.set_font_size(16)
         self.set_text_color("black")
         self.set_text(text)
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.set_margin(0,6)
         self.parent.add_element(self)
 
@@ -168,7 +168,7 @@ class startbox(MesaStackVertical):
         super().__init__(parent)
         self.set_fixed_width(400)
         self.set_fixed_height(82)
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.start=NormalText2(self,"● レンタル開始日時")
         self.nichiji=inputbox(self,1,1)
         self.parent.add_element(self)
@@ -179,7 +179,7 @@ class finalbox(MesaStackVertical):
         super().__init__(parent)
         self.set_fixed_width(400)
         self.set_fixed_height(80)
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.start=NormalText2(self,"● レンタル終了日時")
         self.nichiji=inputbox(self,1,1)
         self.parent.add_element(self)
@@ -240,7 +240,7 @@ class errorImage(MesaImage):
         self.set_fixed_width(360)
         self.pathimage = image
         self.set_image(image)
-        self.set_color_as_parent()
+        self.set_background_color("#F3F3F3")
         self.center_vertical()
         self.center_element()
         self.set_margin(0,0)
@@ -261,29 +261,19 @@ class errorimagebox(MesaStackVertical):
         self.set_margin(170,0)
         self.parent.add_element(self)
 
-class scroll(MesaStackVertical):
-    def __init__(self, parent) -> None:
-        super().__init__(parent)
-        self.set_width_as_parent()
-        self.set_height_as_parent()
-        self.set_background_color("#F3F3F3")
-        self.enable_scrolling()
-        self.text1=textbox(self)
-        self.box1=startbox(self)
-        self.image=imagebox(self,"res/namisen.png")
-        self.box2=finalbox(self)
-        self.error1=errorImage(self,"res/error1.png")   #指定された日時が既に予約されているときに表示されるエラー
-        #self.error2=errorImage(self,"res/error2.png")  #日時がおかしいときに表示されるエラー
-        self.button=kakuninButton(self)
-        self.parent.add_element(self)
-
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
         self.set_background_color("#F3F3F3")
         self.container = MesaStackVertical(self)
         self.title=Title(self.container, "Renteck")
-        self.scroll=scroll(self.container)
+        self.text1=textbox(self.container)
+        self.box1=startbox(self.container)
+        self.image=imagebox(self.container,"res/namisen.png")
+        self.box2=finalbox(self.container)
+        self.error1=errorImage(self.container,"res/error1.png")   #指定された日時が既に予約されているときに表示されるエラー
+        #self.error2=errorImage(self.container,"res/error2.png")  #日時がおかしいときに表示されるエラー
+        self.button=kakuninButton(self.container)
         self.container.set_as_core()
         self.container.build()
 
