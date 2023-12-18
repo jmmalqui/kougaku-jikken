@@ -17,6 +17,22 @@ class Title(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
+class modoru(MesaButtonText):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(60)
+        self.set_fixed_height(82)
+        self.declare_font_type("NOSYS")
+        self.load_ttf("res/NotoSansJP-Bold.ttf")
+        self.set_font_size(25)
+        self.set_text_color("black")
+        self.set_text("＜")
+        self.set_background_color("white")
+        self.center_text()
+        self.center_vertical()
+        self.set_margin(5,10)
+        self.parent.add_element(self)
+
 
 class PCname1(MesaTextLabel):
     def __init__(self, parent) -> None:
@@ -25,10 +41,10 @@ class PCname1(MesaTextLabel):
         self.set_fixed_height(30)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(20)
+        self.set_font_size(19)
         self.set_text_color("black")
         self.set_background_color("#F3F3F3")
-        self.set_text("Microsoft")
+        self.set_text("Lenovo")
         self.parent.add_element(self)
 
 
@@ -39,10 +55,10 @@ class PCname2(MesaTextLabel):
         self.set_fixed_height(45)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
-        self.set_font_size(27)
+        self.set_font_size(22)
         self.set_text_color("black")
         self.set_background_color("#F3F3F3")
-        self.set_text("Surface Laptop Go2")
+        self.set_text("IdeaPad Slim 370i 82RK00BCJP")
         self.parent.add_element(self)
 
 
@@ -63,11 +79,12 @@ class PCtitle(MesaStackVertical):
 class pcImage(MesaImage):
     def __init__(self, parent, image) -> None:
         super().__init__(parent)
-        self.set_fixed_height(450)
-        self.set_fixed_width(280)
+        self.set_fixed_height(200)
+        self.set_fixed_width(275)
         self.pathimage = image
         self.set_image(image)
         self.set_color_as_parent()
+        self.set_margin(25,0)
         self.parent.add_element(self)
 
     def late_init(self):
@@ -79,11 +96,11 @@ class pcImage(MesaImage):
 class imagebox(MesaStackVertical):
     def __init__(self, parent, image) -> None:
         super().__init__(parent)
-        self.set_fixed_width(370)
-        self.set_fixed_height(230)
+        self.set_fixed_width(350)
+        self.set_fixed_height(210)
         self.set_background_color("#F3F3F3")
         self.image = pcImage(self, image)
-        self.set_margin(35, 6)
+        self.set_margin(40, 0)
         self.parent.add_element(self)
 
 
@@ -125,7 +142,7 @@ class daisu(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
-
+#残り台数を更新する
 class number(MesaTextLabel):
     def __init__(self, parent, number) -> None:
         super().__init__(parent)
@@ -179,14 +196,14 @@ class setumei(MesaStackVertical):
         self.set_width_as_display()
         self.set_fixed_height(300)
         self.set_background_color("#F3F3F3")
-        self.text1=NormalText(self,"本体サイズ 　　:  278.2mm×206.2mm×15.7mm")
-        self.text2=NormalText(self,"スクリーン 　　:  12.4インチ")
-        self.text3=NormalText(self,"解像度 　　　　:  1536×1024")
-        self.text4=NormalText(self,"メモリ　　 　　:  4GB")
-        self.text5=NormalText(self,"ストレージ 　　:  リーズナブル ドライブ(SSD)")
-        self.text6=NormalText(self,"ソフトウェア 　:  Windows11 Home")
-        self.text7=NormalText(self,"プロセッサ　 　:  クアッドコア第11世代インテルCore")
-        self.text8=NormalText(self,"バッテリー　 　:  通常デバイス使用で最大13.5時間")
+        self.text1=NormalText(self,"本体サイズ 　　:  359.2mm×236.5mm×19.9mm")
+        self.text2=NormalText(self,"スクリーン 　　:  15.6インチ")
+        self.text3=NormalText(self,"解像度 　　　　:  1920×1080")
+        self.text4=NormalText(self,"メモリ　　 　　:  8GB DDDR4-3200MHz")
+        self.text5=NormalText(self,"ストレージ 　　:  512GB SSD")
+        self.text6=NormalText(self,"ソフトウェア 　:  Windows11 Home 64bit")
+        self.text7=NormalText(self,"プロセッサ　 　:  インテルCore i5-1235U プロセッサー")
+        self.text8=NormalText(self,"バッテリー　 　:  3セル リチウムイオンポリマーバッテリー45Wh")
         self.set_margin(0,6)
         self.parent.add_element(self)
 
@@ -230,7 +247,7 @@ class textbox1(MesaStackHorizontal):
         self.set_background_color("#F3F3F3")
         self.rentaru = rentarutext(self, "レンタル可能")
         self.daisu = daisu(self)
-        self.number = number(self.daisu, "  3")
+        self.number = number(self.daisu, "  2")
         self.parent.add_element(self)
 
 
@@ -260,7 +277,7 @@ class scroll(MesaStackVertical):
         self.enable_scrolling()
 
         self.PCname=PCtitle(self)
-        self.image=imagebox(self,"res/pcbig1.png")
+        self.image=imagebox(self,"res/pc2.png")
         self.text1=textbox1(self)
         self.sen1=CustomBox1(self)
         self.text2=setumeibox(self)
@@ -276,6 +293,7 @@ class MainScene(MesaScene):
         self.set_background_color("white")
         self.container = MesaStackVertical(self)
         self.title = Title(self.container, "Renteck")
+        self.button = modoru(self.title)
         self.scroll = scroll(self.container)
         self.set_background_color("#E6E6E6")
         self.container.set_as_core()

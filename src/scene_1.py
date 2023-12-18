@@ -17,6 +17,49 @@ class Title(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
+class mypagebutton(MesaButtonText):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(70)
+        self.set_fixed_height(82)
+        self.declare_font_type("NOSYS")
+        self.load_ttf("res/NotoSansJP-Bold.ttf")
+        self.set_font_size(25)
+        self.set_text_color("black")
+        self.set_text(" ")
+        self.set_background_color("white")
+        self.center_text()
+        self.center_vertical()
+        self.set_margin(10,10)
+        self.parent.add_element(self)
+
+class buttonImage(MesaImage):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_height(60)
+        self.set_fixed_width(55)
+        self.set_image("res/mypage.png")
+        self.set_color_as_parent()
+        self.center_vertical()
+        self.center_element()
+        self.set_margin(7, 10)
+        self.parent.add_element(self)
+
+    def late_init(self):
+        self.resize_match_parent_width()
+
+        return super().late_init()
+
+
+class buttonimagebox(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(60)
+        self.set_fixed_height(82)
+        self.set_background_color("white")
+        self.image = buttonImage(self)
+        self.parent.add_element(self)
+
 
 class CustomBox(MesaStackVertical):
     def __init__(self, parent, width, height, color) -> None:
@@ -333,6 +376,8 @@ class MainScene(MesaScene):
         self.set_background_color("#F3F3F3")
         self.container = MesaStackVertical(self)
         self.title = Title(self.container, "Renteck")
+        self.button=mypagebutton(self.title)
+        self.buttonimage=buttonimagebox(self.button)
         self.container.set_as_core()
         self.scroll = scroll(self.container)
         self.container.build()
