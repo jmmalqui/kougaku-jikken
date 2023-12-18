@@ -8,10 +8,10 @@ class MainScene(MesaScene):
         self.set_background_color("#F6F6F6")
         self.container = MesaStackVertical(self)
 
-        self.title1 = Title1(self.container,'新規会員登録') #上部ラベル
-        self.MyButton1 = MyButton1(self.title1,'＜',"black","white")
-        self.text1 = CustomText1(self.container,'メールアドレスを入力してください',55)
-        self.text2 = CustomText2(self.container,'メールアドレス',20)
+        self.title1 = Title1(self.container, "新規会員登録")  # 上部ラベル
+        self.MyButton1 = MyButton1(self.title1, "＜", "black", "white")
+        self.text1 = CustomText1(self.container, "メールアドレスを入力してください", 55)
+        self.text2 = CustomText2(self.container, "メールアドレス", 20)
 
         self.input1 = MyInputBox1(self.container)
         self.MyButton2 = MyButton2(self.container, "会員登録する", "white", "black")
@@ -54,7 +54,7 @@ class CustomText1(MesaTextLabel):
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(height)
-        self.set_margin(50,0)
+        self.set_margin(50, 0)
 
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
@@ -65,7 +65,7 @@ class CustomText1(MesaTextLabel):
         self.center_text()
         self.parent.add_element(self)
 
-#戻るボタン（画面左上）
+
 class MyButton1(MesaButtonText):
     def __init__(self, parent, text, textcolor, bgcolor) -> None:
         super().__init__(parent)
@@ -92,7 +92,7 @@ class CustomText2(MesaTextLabel):
         super().__init__(parent)
         self.set_width_as_parent()
         self.set_fixed_height(height)
-        self.set_margin(30,0)
+        self.set_margin(30, 0)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(13)
@@ -119,7 +119,7 @@ class MyInputBox1(MesaTextBoxInput):
         self.parent.add_element(self)
 
 
-#入力テキストボックス（パスワード）
+# 入力テキストボックス（パスワード）
 
 
 class MyInputBox2(MesaTextBoxInput):
