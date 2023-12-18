@@ -7,10 +7,12 @@ class MainScene(MesaScene):
         super().__init__(core, scene_name, manager)
         self.set_background_color("#F6F6F6")
         self.container = MesaStackVertical(self)
-        self.title1 = Title1(self.container, "ログイン")  # 上部ラベル
-        self.MyButton1 = MyButton1(self.title1, "＜", "#818181", "white")
-        self.title2 = Title2(self.container, "Renteck")  # RRenteck
-        self.text1 = CustomText1(self.container, "メールアドレス", 30)
+
+        self.title1 = Title1(self.container,'ログイン') #上部ラベル
+        self.MyButton1 = MyButton1(self.title1,'＜',"#818181","white")
+        self.title2 = Title2(self.container,'Renteck')#RRenteck
+        self.text1 = CustomText1(self.container,'メールアドレス',30)
+
         self.input1 = MyInputBox1(self.container)
         self.text2 = CustomText2(self.container, "パスワード", 30)
         self.input2 = MyInputBox2(self.container)

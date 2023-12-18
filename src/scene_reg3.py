@@ -14,13 +14,14 @@ sentence1 = (
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
-        self.set_background_color("#F6F6F6")
+        self.set_background_color("#F3F3F3")
         self.container = MesaStackVertical(self)
 
-        self.title1 = Title1(self.container, "仮登録完了")  # 上部ラベル
-        self.title2 = Title2(self.container, "仮登録が完了しました")
-        self.box = box(self.container)
-        self.text2 = CustomText2(self.container, sentence1, 160)
+        self.title1 = Title1(self.container,'仮登録完了') #上部ラベル
+        self.image1=Image1(self.container)
+        self.box=box(self.container)
+        self.text2 = CustomText2(self.container,sentence1,160)
+
 
         self.container.set_as_core()
         self.container.build()
@@ -59,16 +60,18 @@ class Image1(MesaImage):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_fixed_width(360)
-        self.set_fixed_height(70)
-        self.set_margin(30, 0)
-        self.set_background_color("#F6F6F6")
-        self.set_image("res/check.PNG")
+        self.set_fixed_height(140)
+        self.set_margin(30,10)
+        self.set_background_color("#F3F3F3")
+        self.set_image("res/check.png")
+
         self.center_element()
         self.parent.add_element(self)
 
     def late_init(self):
         self.resize_match_parent_width()
         return super().late_init()
+
 
 
 # テキスト（仮登録が完了しました）
@@ -122,6 +125,7 @@ class MyInputBox1(MesaTextBoxInput):
         self.parent.add_element(self)
 
 
+
 class MyButton1(MesaButtonText):
     def __init__(self, parent, text, textcolor, bgcolor) -> None:
         super().__init__(parent)
@@ -167,6 +171,7 @@ class box(MesaStackVertical):
         self.set_width_as_parent()
         self.set_fixed_height(180)
         self.set_color_as_parent()
+
         self.text1 = CustomText1(self, "認証コードを入力してください", 30)
         self.input = MyInputBox1(self)
         self.MyButton1 = MyButton1(self, "本登録へ進む", "white", "black")

@@ -66,7 +66,6 @@ class CustomText1(MesaTextLabel):
         self.parent.add_element(self)
 
 
-# 戻るボタン（画面左上）
 class MyButton1(MesaButtonText):
     def __init__(self, parent, text, textcolor, bgcolor) -> None:
         super().__init__(parent)
