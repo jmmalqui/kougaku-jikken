@@ -254,7 +254,7 @@ class calendarTitle(MesaTextLabel):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
-        self.set_fixed_height(60)
+        self.set_fixed_height(170)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Regular.ttf")
         self.set_font_size(22)

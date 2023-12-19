@@ -406,30 +406,31 @@ class rirekibox(MesaStackVertical):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_fixed_width(370)
-        self.set_fixed_height(560)
+        self.set_fixed_height(700)
         self.set_background_color("#F3F3F3")
         self.set_margin(15,10)
         self.title=mainTitle2(self)
         self.box=rirekiwhitebox(self)
         self.box=rirekiwhitebox(self)
         self.box=rirekiwhitebox(self)
+        self.button=homeButton(self)
         #self.text=NOrenteru(self)
         self.parent.add_element(self)
 
 class homeButton(MesaButtonText):
     def __init__(self, parent) -> None:
         super().__init__(parent)
-        self.set_fixed_width(360)
+        self.set_fixed_width(330)
         self.set_fixed_height(70)
         self.declare_font_type("NOSYS")
         self.load_ttf("res/NotoSansJP-Medium.ttf")
         self.set_font_size(13)
         self.set_text_color("white")
-        self.set_text("ホームに戻る")
+        self.set_text("トップに戻る")
         self.set_background_color("black")
         self.center_text()
         self.center_vertical()
-        self.set_margin(105,10)
+        self.set_margin(80,10)
         self.parent.add_element(self)
 
 class scroll(MesaStackVertical):
@@ -441,7 +442,6 @@ class scroll(MesaStackVertical):
         self.enable_scrolling()
         self.box=rentarubox(self)
         self.box2=rirekibox(self)
-        self.button=homeButton(self)
         self.parent.add_element(self)
 
 class MainScene(MesaScene):
