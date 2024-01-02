@@ -7,13 +7,12 @@ class MainScene(MesaScene):
         super().__init__(core, scene_name, manager)
         self.set_background_color("#F6F6F6")
         self.container = MesaStackVertical(self)
-
         self.title1 = Title1(self.container, "ログイン")  # 上部ラベル
         self.MyButton1 = MyButton1(self.title1, "＜", "black", "white")
         self.title2 = Title2(self.container, "Renteck")  # Renteck
         self.text1 = CustomText1(self.container, "メールアドレス", 30)
-
         self.input1 = MyInputBox1(self.container)
+        self.error1 = mailerrorImage(self.container)
         self.text2 = CustomText2(self.container, "パスワード", 30)
         self.input2 = MyInputBox2(self.container)
 
@@ -121,6 +120,34 @@ class MyInputBox1(MesaTextBoxInput):
         self.set_background_color("white")
         self.border("gray", 1)
         self.center_text_vertical()
+        self.parent.add_element(self)
+
+#メールアドレスのエラー表示
+class mailerrorImage(MesaImage):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_height(30)
+        self.set_fixed_width(250)
+        self.set_image("res/mailerror.png")
+        self.set_background_color("#F3F3F3")
+        self.center_vertical()
+        self.center_element()
+        self.set_margin(30,0)
+        self.parent.add_element(self)
+
+    def late_init(self):
+        self.resize_match_parent_width()
+
+        return super().late_init()
+    
+class errorimagebox(MesaStackVertical):
+    def __init__(self, parent) -> None:
+        super().__init__(parent)
+        self.set_fixed_width(100)
+        self.set_fixed_height(50)
+        self.set_background_color("#F3F3F3")
+        self.image=mailerrorImage(self)
+        self.set_margin(0,0)
         self.parent.add_element(self)
 
 

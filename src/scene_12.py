@@ -172,7 +172,6 @@ class box1(MesaStackVertical):
         self.text2=informationbox2(self.box)
         self.memo=imagebox(self)
         self.button=rentaruButton(self)
-        self.button2=logoutButton(self)
         self.parent.add_element(self)
 
 class Image(MesaImage):
@@ -213,22 +212,6 @@ class rentaruButton(MesaButtonText):
         self.center_text()
         self.center_vertical()
         self.set_margin(47,0)
-        self.parent.add_element(self)
-
-class logoutButton(MesaButtonText):
-    def __init__(self, parent) -> None:
-        super().__init__(parent)
-        self.set_fixed_width(325)
-        self.set_fixed_height(105)
-        self.declare_font_type("NOSYS")
-        self.load_ttf("res/NotoSansJP-Medium.ttf")
-        self.set_font_size(13)
-        self.set_text_color("white")
-        self.set_text("ログアウト")
-        self.set_background_color("#818181")
-        self.center_text()
-        self.center_vertical()
-        self.set_margin(95,30)
         self.parent.add_element(self)
 
 class MainScene(MesaScene):

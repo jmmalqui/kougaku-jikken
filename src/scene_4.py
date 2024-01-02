@@ -333,7 +333,7 @@ class henkoubox(MesaStackVertical):
     def __init__(self, parent) -> None:
         super().__init__(parent)
         self.set_width_as_parent()
-        self.set_fixed_height(120)
+        self.set_fixed_height(200)
         self.set_background_color("#F3F3F3")
         self.set_margin(15,10)
         self.title=henkoutext(self)
