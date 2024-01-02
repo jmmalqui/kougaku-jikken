@@ -1,9 +1,6 @@
 from mesa import *
 import pygame as pg
 
-sentence1="※仮登録の際に入力したメールアドレスを入力してください"
-
-
 class MainScene(MesaScene):
     def __init__(self, core, scene_name, manager) -> None:
         super().__init__(core, scene_name, manager)
@@ -60,6 +57,9 @@ class CustomText0(MesaTextLabel):
         self.center_text()
         self.set_background_color("#F6F6F6")
         self.parent.add_element(self)
+
+sentence1="※仮登録の際に入力したメールアドレスを入力してください"
+
 
 
 #メールアドレス
